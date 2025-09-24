@@ -1,4 +1,4 @@
-package com.app.kinlock.domain.entities;
+package com.app.kinlock.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -1,9 +1,8 @@
 package com.app.kinlock.presentation.controller;
 
-import com.app.kinlock.domain.entities.Department;
+import com.app.kinlock.domain.entity.Department;
 import com.app.kinlock.domain.service.DepartmentService;
 import com.app.kinlock.presentation.dto.DepartmentDto;
-import jakarta.websocket.server.PathParam;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

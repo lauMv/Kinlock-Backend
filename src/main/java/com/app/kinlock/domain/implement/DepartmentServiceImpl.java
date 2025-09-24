@@ -2,7 +2,7 @@ package com.app.kinlock.domain.implement;
 
 import com.app.kinlock.data.DepartmentRepository;
 import com.app.kinlock.data.GenericRepository;
-import com.app.kinlock.domain.entities.Department;
+import com.app.kinlock.domain.entity.Department;
 import com.app.kinlock.domain.service.DepartmentService;
 import com.app.kinlock.presentation.dto.DepartmentDto;
 import lombok.AllArgsConstructor;

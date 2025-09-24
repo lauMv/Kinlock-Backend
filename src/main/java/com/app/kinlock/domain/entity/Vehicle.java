@@ -1,15 +1,15 @@
-package com.app.kinlock.domain.entities;
+package com.app.kinlock.domain.entity;
 
+import com.app.kinlock.common.enums.VehicleClassification;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.util.ArrayList;
-import java.util.List;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Vehicle {
 
     @Id
@@ -18,8 +18,8 @@ public class Vehicle {
 
     private String brand;
 
-    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<VehicleClassification> classifications = new ArrayList<>();
+    @Enumerated(EnumType.STRING)
+    VehicleClassification classifications;
 
     private String model;
     private Integer year;
