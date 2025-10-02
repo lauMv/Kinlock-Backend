@@ -25,6 +25,11 @@ public class VehicleController {
         return ResponseEntity.status(HttpStatus.CREATED).body(vehicleService.create(dto));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Vehicle> update(@PathVariable Integer id, @RequestBody VehicleDto dto){
+        return ResponseEntity.status(HttpStatus.OK).body(vehicleService.update(id, dto));
+    }
+
     @GetMapping
     public ResponseEntity<List<Vehicle>> getAll(){
         return ResponseEntity.status(HttpStatus.OK).body(vehicleService.getAll());

@@ -13,6 +13,7 @@ public class VehicleMapper {
         vehicle.setModel(dto.getModel());
         vehicle.setBrand(dto.getModel());
         vehicle.setHighEnd(dto.getHighEnd());
+        vehicle.setName(dto.getBrand() + "-" + dto.getModel() + "-" + dto.getYear());
         vehicle.setClassifications(VehicleClassification.fromString(dto.getClassification()));
         return vehicle;
     }

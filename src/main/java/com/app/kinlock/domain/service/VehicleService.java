@@ -6,4 +6,6 @@ import com.app.kinlock.presentation.dto.VehicleDto;
 public interface VehicleService extends CRUDService<Vehicle, Integer> {
 
     Vehicle create(VehicleDto dto);
+
+    Vehicle update(Integer id, VehicleDto dto);
 }

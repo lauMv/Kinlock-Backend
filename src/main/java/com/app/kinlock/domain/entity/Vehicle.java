@@ -24,4 +24,5 @@ public class Vehicle {
     private String model;
     private Integer year;
     private Boolean highEnd;
+    private String name;
 }

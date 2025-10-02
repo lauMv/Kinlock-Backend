@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class VehicleDto {
+public class PlanDto {
 
-    private String brand;
-    private String classification;
-    private String model;
-    private Integer year;
-    private Boolean highEnd;
+    private Integer vehicleId;
+
+    private double discount;
+
+    private double total;
 }

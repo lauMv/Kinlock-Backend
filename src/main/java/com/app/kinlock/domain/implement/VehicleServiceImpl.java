@@ -7,6 +7,7 @@ import com.app.kinlock.domain.mapper.VehicleMapper;
 import com.app.kinlock.domain.service.VehicleService;
 import com.app.kinlock.presentation.dto.VehicleDto;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,6 +24,17 @@ public class VehicleServiceImpl extends CRUDServiceImpl<Vehicle, Integer> implem
 
     @Override
     public Vehicle create(VehicleDto dto) {
-        return mapper.fromDto(dto, new Vehicle());
+        Vehicle vehicle = mapper.fromDto(dto, new Vehicle());
+        this.create(vehicle);
+        return vehicle;
     }
+
+    @SneakyThrows
+    @Override
+    public Vehicle update(Integer id, VehicleDto dto) {
+        Vehicle vehicle = this.getById(id);
+        this.create(mapper.fromDto(dto, vehicle));
+        return vehicle;
+    }
+
 }
