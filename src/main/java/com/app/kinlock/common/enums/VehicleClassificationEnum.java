@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum VehicleClassification {
+public enum VehicleClassificationEnum {
     CAR("AUTOMOVIL"),
     SUV("VAGONETA"),
     PICKUP("CAMIONETA"),
@@ -16,13 +16,13 @@ public enum VehicleClassification {
 
     private final String value;
 
-    public static VehicleClassification fromString(String value) {
+    public static VehicleClassificationEnum fromString(String value) {
         if (value == null || value.isEmpty()) {
             return null;
         }
         String normalized = value.trim().toLowerCase();
 
-        for (VehicleClassification v : values()) {
+        for (VehicleClassificationEnum v : values()) {
             if (v.name().equalsIgnoreCase(normalized) || v.value.equalsIgnoreCase(normalized)) {
                 return v;
             }

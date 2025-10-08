@@ -3,16 +3,14 @@ package com.app.kinlock.domain.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-@Entity
 @Data
-@Table(name = "benefits")
-public class Benefit {
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
+    private Integer Id;
     private String name;
-    private Boolean isPrimary;
-    private String details;
+    private Long ci;
 }

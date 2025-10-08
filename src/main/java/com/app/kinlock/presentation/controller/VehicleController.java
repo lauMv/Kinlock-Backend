@@ -1,6 +1,6 @@
 package com.app.kinlock.presentation.controller;
 
-import com.app.kinlock.common.enums.VehicleClassification;
+import com.app.kinlock.common.enums.VehicleClassificationEnum;
 import com.app.kinlock.domain.entity.Vehicle;
 import com.app.kinlock.domain.service.VehicleService;
 import com.app.kinlock.presentation.dto.VehicleDto;
@@ -42,8 +42,8 @@ public class VehicleController {
 
     @GetMapping("/vehicleClassification")
     public List<String> getVehicleClassifications() {
-        return Arrays.stream(VehicleClassification.values())
-                .map(VehicleClassification::getValue) // only Spanish
+        return Arrays.stream(VehicleClassificationEnum.values())
+                .map(VehicleClassificationEnum::getValue) // only Spanish
                 .collect(Collectors.toList());
     }
 }

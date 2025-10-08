@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -30,5 +33,9 @@ public class Plan {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "insurance_id", nullable = false)
     private Insurance insurance;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "plan_id")
+    private List<Benefit> benefits = new ArrayList<>();
 
 }

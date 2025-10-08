@@ -1,6 +1,6 @@
 package com.app.kinlock.domain.entity;
 
-import com.app.kinlock.common.enums.VehicleClassification;
+import com.app.kinlock.common.enums.VehicleClassificationEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,7 +19,7 @@ public class Vehicle {
     private String brand;
 
     @Enumerated(EnumType.STRING)
-    VehicleClassification classifications;
+    VehicleClassificationEnum classifications;
 
     private String model;
     private Integer year;
