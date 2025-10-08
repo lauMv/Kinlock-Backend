@@ -1,7 +1,6 @@
 package com.app.kinlock.data;
 
-import com.app.kinlock.domain.entities.Department;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.app.kinlock.domain.entity.Department;
 import org.springframework.stereotype.Repository;
 
 @Repository
