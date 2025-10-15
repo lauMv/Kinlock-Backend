@@ -37,5 +37,10 @@ public class InsuranceController {
         return ResponseEntity.status(HttpStatus.OK).body(insuranceService.getById(id));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id){
+        insuranceService.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 
 }

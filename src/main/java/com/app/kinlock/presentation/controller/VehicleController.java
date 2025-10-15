@@ -46,4 +46,10 @@ public class VehicleController {
                 .map(VehicleClassificationEnum::getValue) // only Spanish
                 .collect(Collectors.toList());
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id){
+        vehicleService.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).build();    
+    }
 }
