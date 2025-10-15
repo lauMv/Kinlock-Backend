@@ -1,23 +1,26 @@
 package com.app.kinlock.exceptions;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
-public abstract class ErrorHandler extends RuntimeException {
+@RestControllerAdvice
+public class ErrorHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<Map<String, Object>> handleBadRequest(Exception ex, HttpServletRequest req) {
+    public ResponseEntity<Map<String, Object>> handleBadRequest(Exception ex, ServerHttpRequest request) {
         return ResponseEntity
                 .badRequest()
                 .body(Map.of(
-                        "statusCode", HttpStatus.BAD_REQUEST,
-                        "message",    ex.getMessage(),
-                        "path",       req.getRequestURI()
+                        "statusCode", HttpStatus.BAD_REQUEST.value(),
+                        "message", ex.getMessage(),
+                        "path", request.getURI().getPath(),
+                        "timestamp", LocalDateTime.now()
                 ));
     }
-
 }
