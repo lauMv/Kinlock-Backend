@@ -3,10 +3,10 @@ package com.app.kinlock.domain.implement;
 import com.app.kinlock.data.GenericRepository;
 import com.app.kinlock.data.PlanRepository;
 import com.app.kinlock.domain.entity.Plan;
-import com.app.kinlock.domain.entity.Vehicle;
+import com.app.kinlock.domain.entity.VehicleCatalog;
 import com.app.kinlock.domain.mapper.PlanMapper;
 import com.app.kinlock.domain.service.PlanService;
-import com.app.kinlock.domain.service.VehicleService;
+import com.app.kinlock.domain.service.VehicleCatalogService;
 import com.app.kinlock.presentation.dto.PlanDto;
 import com.app.kinlock.presentation.pojo.PlanPojo;
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ import java.util.List;
 public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements PlanService {
 
     private final PlanRepository planRepository;
-    private final VehicleService vehicleService;
+    private final VehicleCatalogService vehicleCatalogService;
     private final PlanMapper mapper;
 
     @Override
@@ -29,17 +29,17 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
 
     @Override
     public PlanPojo create(PlanDto dto) {
-        Vehicle vehicle = vehicleService.getById(dto.getVehicleId());
-        Plan plan = mapper.fromDto(dto, new Plan(), vehicle);
+        VehicleCatalog vehicleCatalog = vehicleCatalogService.getById(dto.getVehicleId());
+        Plan plan = mapper.fromDto(dto, new Plan(), vehicleCatalog);
         this.create(plan);
         return mapper.toPojo(plan);
     }
 
     @Override
     public PlanPojo update(Integer id, PlanDto dto) {
-        Vehicle vehicle = vehicleService.getById(dto.getVehicleId());
+        VehicleCatalog vehicleCatalog = vehicleCatalogService.getById(dto.getVehicleId());
         Plan plan = this.getById(id);
-        plan = mapper.fromDto(dto, plan, vehicle);
+        plan = mapper.fromDto(dto, plan, vehicleCatalog);
         this.create(plan);
         return mapper.toPojo(plan);
     }

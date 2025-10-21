@@ -3,6 +3,7 @@ package com.app.kinlock.domain.implement;
 import com.app.kinlock.data.GenericRepository;
 import com.app.kinlock.data.InsuranceRepository;
 import com.app.kinlock.domain.entity.Insurance;
+import com.app.kinlock.domain.mapper.InsuranceMapper;
 import com.app.kinlock.domain.service.InsuranceService;
 import com.app.kinlock.presentation.dto.InsuranceDto;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 public class InsuranceServiceImpl extends CRUDServiceImpl<Insurance, Integer> implements InsuranceService {
 
     private final InsuranceRepository repository;
+    private final InsuranceMapper mapper;
 
     @Override
     protected GenericRepository<Insurance, Integer> getRepository() {
@@ -21,14 +23,14 @@ public class InsuranceServiceImpl extends CRUDServiceImpl<Insurance, Integer> im
 
     @Override
     public Insurance create(InsuranceDto dto) {
-        return this.create(new Insurance(dto.getName(), dto.getType()));
+        Insurance insurance = mapper.fromDto(dto, new Insurance());
+        return this.create(insurance);
     }
 
     @Override
     public Insurance update(Integer id, InsuranceDto dto) {
-        Insurance ins = new Insurance(dto.getName(), dto.getType());
-        ins.setName(dto.getName());
-        ins.setType(dto.getType());
-        return this.create(ins);
+        Insurance ins = this.getById(id);
+        mapper.fromDto(dto, ins);
+        return repository.save(ins);
     }
 }

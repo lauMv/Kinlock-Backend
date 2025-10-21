@@ -3,7 +3,8 @@ package com.app.kinlock.presentation.dto;
 import lombok.Data;
 
 @Data
-public class DepartmentDto {
+public class RegionalDto {
 
     private String name;
+    private String country;
 }
