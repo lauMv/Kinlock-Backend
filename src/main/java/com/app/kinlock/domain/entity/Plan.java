@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+import static jakarta.persistence.CascadeType.ALL;
+
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
@@ -34,14 +36,10 @@ public class Plan extends Base {
 
     private Double minimumPremium;
     private Double rate;
+    private Integer ageLimit;
 
-    private double discount;
+    private Double discount;
 
-    private double total;
-
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "plan_id")
-    private List<Benefit> benefits = new ArrayList<>();
-
+    @OneToMany(mappedBy = "plan", cascade = ALL, orphanRemoval = true)
+    private List<PlanBenefit> planBenefits = new ArrayList<>();
 }
