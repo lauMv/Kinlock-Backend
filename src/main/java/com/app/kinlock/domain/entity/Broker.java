@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-public class Broker extends Client {
+public class Broker extends User {
 
     @ManyToMany
     @JoinTable(

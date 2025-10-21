@@ -1,16 +1,22 @@
 package com.app.kinlock.domain.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-@Data
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Client {
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class Client extends User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
-    private String name;
-    private Long ci;
+    private String email;
+    private Long phone;
+    private String address;
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ClientPlan> details = new ArrayList<>();
 }

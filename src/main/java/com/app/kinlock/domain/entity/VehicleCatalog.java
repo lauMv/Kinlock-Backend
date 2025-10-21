@@ -1,22 +1,26 @@
 package com.app.kinlock.domain.entity;
 
+import com.app.kinlock.common.enums.VehicleClassificationEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-@Table(name = "departments")
-public class Department {
+public class VehicleCatalog extends Base{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String name;
+    private String brand;
+
+    @Enumerated(EnumType.STRING)
+    VehicleClassificationEnum classifications;
+
+    private String model;
+    private Boolean highEnd;
 }
-
-

@@ -11,7 +11,9 @@ public class PlanPojo {
 
     private Integer id;
     private Integer vehicleId;
-    private String vehicleName;
+    private String vehicleBrand;
+    private String vehicleModel;
     private double discount;
     private double total;
+
 }
