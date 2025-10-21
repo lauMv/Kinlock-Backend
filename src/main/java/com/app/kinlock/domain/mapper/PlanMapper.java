@@ -9,10 +9,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class PlanMapper {
 
-    public Plan fromDto (PlanDto dto, Plan plan, VehicleCatalog vehicleCatalog){
-        plan.setVehicleCatalog(vehicleCatalog);
+    public Plan fromDto (PlanDto dto, Plan plan){
+        plan.setMinimumPremium(dto.getMinimumPremium());
+        plan.setRate(dto.getRate());
+        plan.setAgeLimit(dto.getAgeLimit());
         plan.setDiscount(dto.getDiscount());
-        plan.setTotal(dto.getTotal());
         return plan;
     }
 
@@ -22,8 +23,11 @@ public class PlanMapper {
         pojo.setVehicleId(plan.getVehicleCatalog().getId());
         pojo.setVehicleBrand(plan.getVehicleCatalog().getBrand());
         pojo.setVehicleModel(plan.getVehicleCatalog().getModel());
+        pojo.setRegional(plan.getRegional().getName());
+        pojo.setInsurance(plan.getInsurance().getName());
+        pojo.setMinimumPremium(plan.getMinimumPremium());
+        pojo.setRate(plan.getRate());
         pojo.setDiscount(plan.getDiscount());
-        pojo.setTotal(plan.getTotal());
         return pojo;
     }
 }

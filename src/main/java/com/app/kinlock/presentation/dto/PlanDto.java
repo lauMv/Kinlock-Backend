@@ -9,9 +9,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PlanDto {
 
-    private Integer vehicleId;
+    private Integer vehicleCatalogId;
 
-    private double discount;
+    private Integer regionalId;
 
-    private double total;
+    private Integer insuranceId;
+
+    private Double minimumPremium;
+    private Double rate;
+    private Integer ageLimit;
+    private Double discount;
 }
