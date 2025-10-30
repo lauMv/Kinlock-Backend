@@ -6,8 +6,7 @@ public class EntityNotFoundException extends RuntimeException {
     }
 
     public EntityNotFoundException(String entity, Integer id) {
-
-        super(String.format("entity.not.found.message", entity, id));
+        super(String.format("La entidad %s con id %s no fue encontrado", entity, id));
     }
 
 }

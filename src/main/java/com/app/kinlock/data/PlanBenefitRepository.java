@@ -13,4 +13,6 @@ public interface PlanBenefitRepository extends GenericRepository<PlanBenefit, In
     PlanBenefit findByPlanIdAndBenefitId(Integer planId, Integer benefitId);
 
     Boolean existsByPlanIdAndBenefitIdAndIdNot(Integer planId, Integer benefitId, Integer id);
+
+    Boolean existsByPlanIdAndBenefitId (Integer planId, Integer benefitId);
 }

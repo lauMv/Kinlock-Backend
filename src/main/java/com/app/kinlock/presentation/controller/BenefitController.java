@@ -20,27 +20,27 @@ public class BenefitController {
 
     private final BenefitService benefitService;
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<Benefit> create(@RequestBody BenefitDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(benefitService.create(dto));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/edit/{id}")
     public ResponseEntity<Benefit> update(@PathVariable Integer id, @RequestBody BenefitDto dto) {
         return ResponseEntity.status(HttpStatus.OK).body(benefitService.update(id, dto));
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity<List<Benefit>> getAll() {
         return ResponseEntity.status(HttpStatus.OK).body(benefitService.getAll());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getById/{id}")
     public ResponseEntity<Benefit> getById(@PathVariable Integer id) {
         return ResponseEntity.status(HttpStatus.OK).body(benefitService.getById(id));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         benefitService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).build();

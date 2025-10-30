@@ -9,8 +9,11 @@ import org.springframework.stereotype.Component;
 public class VehicleCatalogMapper {
 
     public VehicleCatalog fromDto(VehicleDto dto, VehicleCatalog vehicleCatalog){
+        if (dto.getState() != null) {
+            vehicleCatalog.setActive(dto.getState());
+        }
         vehicleCatalog.setModel(dto.getModel());
-        vehicleCatalog.setBrand(dto.getModel());
+        vehicleCatalog.setBrand(dto.getBrand());
         vehicleCatalog.setHighEnd(dto.getHighEnd());
         vehicleCatalog.setClassifications(VehicleClassificationEnum.fromString(dto.getClassification()));
         return vehicleCatalog;

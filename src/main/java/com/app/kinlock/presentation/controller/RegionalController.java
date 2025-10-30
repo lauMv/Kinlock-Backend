@@ -17,27 +17,27 @@ public class RegionalController {
 
     private RegionalService regionalService;
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<Regional> create(@RequestBody RegionalDto dep){
         return ResponseEntity.status(HttpStatus.CREATED).body(regionalService.create(dep));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/edit/{id}")
     public ResponseEntity<Regional> update(@PathVariable Integer id, @RequestBody RegionalDto dto){
         return ResponseEntity.status(HttpStatus.OK).body(regionalService.update(id, dto));
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity<List<Regional>> getAll(){
         return ResponseEntity.status(HttpStatus.OK).body(regionalService.getAll());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getById/{id}")
     public ResponseEntity<Regional> getById(@PathVariable Integer id) {
         return ResponseEntity.ok(regionalService.getById(id));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id){
         regionalService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).build();

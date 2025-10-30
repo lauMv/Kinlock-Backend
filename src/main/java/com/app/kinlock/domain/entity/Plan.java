@@ -30,7 +30,7 @@ public class Plan extends Base {
     @JoinColumn(name = "regional_id")
     private Regional regional;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "insurance_id", nullable = false)
     private Insurance insurance;
 
@@ -38,7 +38,11 @@ public class Plan extends Base {
     private Double rate;
     private Integer ageLimit;
 
+    private String level;
     private Double discount;
+    private String franchise;
+
+    private Double interest;
 
     @OneToMany(mappedBy = "plan", cascade = ALL, orphanRemoval = true)
     private List<PlanBenefit> planBenefits = new ArrayList<>();

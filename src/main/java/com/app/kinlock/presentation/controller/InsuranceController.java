@@ -17,27 +17,27 @@ public class InsuranceController {
 
     private final InsuranceService insuranceService;
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<Insurance> create(@RequestBody InsuranceDto dto){
         return ResponseEntity.status(HttpStatus.CREATED).body(insuranceService.create(dto));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/edit/{id}")
     public ResponseEntity<Insurance> update(@PathVariable Integer id, @RequestBody InsuranceDto dto){
         return ResponseEntity.status(HttpStatus.OK).body(insuranceService.update(id, dto));
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity<List<Insurance>> getAll(){
         return ResponseEntity.status(HttpStatus.OK).body(insuranceService.getAll());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getById/{id}")
     public ResponseEntity<Insurance> getById(@PathVariable Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(insuranceService.getById(id));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id){
         insuranceService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).build();
