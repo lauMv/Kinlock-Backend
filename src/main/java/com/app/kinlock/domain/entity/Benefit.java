@@ -4,8 +4,10 @@ import com.app.kinlock.common.enums.BenefitsCoverageEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @Table(name = "benefits")

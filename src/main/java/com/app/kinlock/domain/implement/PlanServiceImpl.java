@@ -1,5 +1,7 @@
 package com.app.kinlock.domain.implement;
 
+import com.app.kinlock.common.enums.VehicleClassificationEnum;
+import com.app.kinlock.common.spec.SpecUtil;
 import com.app.kinlock.data.GenericRepository;
 import com.app.kinlock.data.PlanRepository;
 import com.app.kinlock.domain.entity.Insurance;
@@ -11,11 +13,14 @@ import com.app.kinlock.domain.service.InsuranceService;
 import com.app.kinlock.domain.service.PlanService;
 import com.app.kinlock.domain.service.RegionalService;
 import com.app.kinlock.domain.service.VehicleCatalogService;
+import com.app.kinlock.presentation.dto.FilterPlanDto;
 import com.app.kinlock.presentation.dto.PlanDto;
 import com.app.kinlock.presentation.pojo.PlanPojo;
 import lombok.AllArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,7 +56,7 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
         return mapper.toPojo(plan);
     }
 
-    private void setEntities(PlanDto dto, Plan plan){
+    private void setEntities(PlanDto dto, Plan plan) {
         VehicleCatalog vehicleCatalog = Optional.ofNullable(vehicleCatalogService.getById(dto.getVehicleCatalogId()))
                 .orElseThrow(() -> new IllegalArgumentException("Vehiculo no encontrado"));
         plan.setVehicleCatalog(vehicleCatalog);
@@ -72,5 +77,20 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
     @Override
     public List<PlanPojo> getAllPojo() {
         return planRepository.getAllPojo();
+    }
+
+    List<Plan> filter(FilterPlanDto dto) {
+        List<Plan> results = planRepository.findAll(fromFilterPlanDto(dto));
+        return results;
+    }
+    public static Specification<Plan> fromFilterPlanDto(FilterPlanDto f) {
+        return SpecUtil.compose(
+                SpecUtil.joinLike("vehicleCatalog", "brand", f.getBrand()),
+                SpecUtil.joinLike("vehicleCatalog", "model", f.getModel()),
+                SpecUtil.joinLike("vehicleCatalog", "classification", VehicleClassificationEnum.fromString(f.getClassification()).toString()),
+                SpecUtil.fieldLessThanEqual("ageLimit", (LocalDate.now().getYear() - f.getYear())),
+                SpecUtil.joinLike("regional", "name", f.getRegional()),
+                SpecUtil.fieldEquals("level", f.getLevel()),
+                SpecUtil.fieldEquals("franchise", f.getFranchise()));
     }
 }

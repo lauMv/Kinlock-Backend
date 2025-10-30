@@ -15,4 +15,5 @@ public interface PlanService extends CRUDService<Plan, Integer> {
     PlanPojo getPojoById(Integer id);
 
     List<PlanPojo> getAllPojo();
+
 }

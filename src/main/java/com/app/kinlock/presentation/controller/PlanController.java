@@ -17,22 +17,22 @@ public class PlanController {
 
     private final PlanService planService;
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<PlanPojo> create(@RequestBody PlanDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(planService.create(dto));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/edit/{id}")
     public ResponseEntity<PlanPojo> update(@PathVariable Integer id, @RequestBody PlanDto dto) {
         return ResponseEntity.status(HttpStatus.OK).body(planService.update(id, dto));
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity<List<PlanPojo>> getAll() {
         return ResponseEntity.status(HttpStatus.OK).body(planService.getAllPojo());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getById/{id}")
     public ResponseEntity<PlanPojo> getById(@PathVariable Integer id) {
         return ResponseEntity.status(HttpStatus.OK).body(planService.getPojoById(id));
     }

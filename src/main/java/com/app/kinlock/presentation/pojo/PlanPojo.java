@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class PlanPojo {
 
     private Integer id;
+    private Boolean state;
     private Integer vehicleId;
     private String vehicleBrand;
     private String vehicleModel;

@@ -1,5 +1,6 @@
 package com.app.kinlock.presentation.dto;
 
+import jakarta.annotation.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PlanDto {
+
+    @Nullable
+    private Boolean state;
 
     private Integer vehicleCatalogId;
 

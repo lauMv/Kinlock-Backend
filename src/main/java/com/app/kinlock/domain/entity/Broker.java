@@ -1,9 +1,6 @@
 package com.app.kinlock.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,6 +11,9 @@ import java.util.List;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 public class Broker extends User {
+
+    @Lob
+    private String logo;
 
     @ManyToMany
     @JoinTable(

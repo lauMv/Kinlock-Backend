@@ -20,7 +20,7 @@ public enum VehicleClassificationEnum {
         if (value == null || value.isEmpty()) {
             return null;
         }
-        String normalized = value.trim().toLowerCase();
+        String normalized = value.trim().toUpperCase();
 
         for (VehicleClassificationEnum v : values()) {
             if (v.name().equalsIgnoreCase(normalized) || v.value.equalsIgnoreCase(normalized)) {

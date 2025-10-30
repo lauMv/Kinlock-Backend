@@ -16,26 +16,26 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/vehicleCatalog")
 @AllArgsConstructor
-public class VehicleController {
+public class VehicleCatalogController {
 
     VehicleCatalogService vehicleCatalogService;
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<VehicleCatalog> create(@RequestBody VehicleDto dto){
         return ResponseEntity.status(HttpStatus.CREATED).body(vehicleCatalogService.create(dto));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/edit/{id}")
     public ResponseEntity<VehicleCatalog> update(@PathVariable Integer id, @RequestBody VehicleDto dto){
         return ResponseEntity.status(HttpStatus.OK).body(vehicleCatalogService.update(id, dto));
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity<List<VehicleCatalog>> getAll(){
         return ResponseEntity.status(HttpStatus.OK).body(vehicleCatalogService.getAll());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getById/{id}")
     public ResponseEntity<VehicleCatalog> getById(@PathVariable Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(vehicleCatalogService.getById(id));
     }
@@ -47,9 +47,4 @@ public class VehicleController {
                 .collect(Collectors.toList());
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id){
-        vehicleCatalogService.delete(id);
-        return ResponseEntity.status(HttpStatus.OK).build();    
-    }
 }

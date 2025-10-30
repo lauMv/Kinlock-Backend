@@ -2,20 +2,17 @@ package com.app.kinlock.domain.service;
 
 import com.app.kinlock.domain.entity.PlanBenefit;
 import com.app.kinlock.presentation.dto.PlanBenefitDto;
+import com.app.kinlock.presentation.pojo.PlanBenefitPojo;
 
 import java.util.List;
-import java.util.Map;
 
 public interface PlanBenefitService extends CRUDService<PlanBenefit, Integer> {
 
-    List<PlanBenefit> getAllByPlan(Integer planId);
+    List<PlanBenefitPojo> getAllByPlan(Integer planId);
 
-    PlanBenefit create(PlanBenefitDto dto);
+    PlanBenefitPojo getPojoById(Integer id);
 
-    PlanBenefit update(Integer id, PlanBenefitDto dto);
+    PlanBenefitPojo create(PlanBenefitDto dto);
 
-    void delete(Integer planId, Integer benefitCatalogId);
-
-    Map<String, Double> parseLimits(String json);
-
+    PlanBenefitPojo update(Integer id, PlanBenefitDto dto);
 }
