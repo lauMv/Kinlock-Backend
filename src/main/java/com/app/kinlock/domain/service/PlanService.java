@@ -1,6 +1,7 @@
 package com.app.kinlock.domain.service;
 
 import com.app.kinlock.domain.entity.Plan;
+import com.app.kinlock.presentation.dto.FilterPlanDto;
 import com.app.kinlock.presentation.dto.PlanDto;
 import com.app.kinlock.presentation.pojo.PlanPojo;
 
@@ -16,4 +17,5 @@ public interface PlanService extends CRUDService<Plan, Integer> {
 
     List<PlanPojo> getAllPojo();
 
+    List<PlanPojo> search(FilterPlanDto dto);
 }

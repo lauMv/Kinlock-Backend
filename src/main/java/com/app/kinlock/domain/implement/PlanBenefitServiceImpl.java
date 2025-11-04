@@ -1,5 +1,7 @@
 package com.app.kinlock.domain.implement;
 
+import com.app.kinlock.common.function.FunctionManager;
+import com.app.kinlock.common.function.NamedFunction;
 import com.app.kinlock.data.GenericRepository;
 import com.app.kinlock.data.PlanBenefitRepository;
 import com.app.kinlock.domain.entity.Benefit;
@@ -13,8 +15,11 @@ import com.app.kinlock.exceptions.EntityNotFoundException;
 import com.app.kinlock.presentation.dto.PlanBenefitDto;
 import com.app.kinlock.presentation.pojo.LimitPojo;
 import com.app.kinlock.presentation.pojo.PlanBenefitPojo;
+import com.app.kinlock.utils.FunctionNames;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -32,6 +37,7 @@ public class PlanBenefitServiceImpl extends CRUDServiceImpl<PlanBenefit, Integer
     private final ObjectMapper mapper = new ObjectMapper();
     private final PlanService planService;
     private final BenefitService benefitService;
+    private final FunctionManager<Integer> integerFunctionManager;
 
 
     @Override
@@ -110,5 +116,10 @@ public class PlanBenefitServiceImpl extends CRUDServiceImpl<PlanBenefit, Integer
                         LimitPojo::getName,
                         LimitPojo::getLimit,
                         (v1, v2) -> v2));
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    private void addFunction() {
+        integerFunctionManager.addFunction(new NamedFunction<>(FunctionNames.GET_ALL_BENEFITS_FROM_PLAN, this::getAllByPlan));
     }
 }

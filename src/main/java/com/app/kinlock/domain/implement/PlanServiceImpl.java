@@ -34,6 +34,7 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
     private final InsuranceService insuranceService;
     private final PlanMapper mapper;
 
+
     @Override
     protected GenericRepository<Plan, Integer> getRepository() {
         return planRepository;
@@ -79,10 +80,13 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
         return planRepository.getAllPojo();
     }
 
-    List<Plan> filter(FilterPlanDto dto) {
-        List<Plan> results = planRepository.findAll(fromFilterPlanDto(dto));
-        return results;
+    @Override
+    public List<PlanPojo> search(FilterPlanDto dto) {
+        Specification<Plan> spec = fromFilterPlanDto(dto);
+        List<Plan> plans = planRepository.findAll(spec);
+        return mapper.toListPojo(plans);
     }
+
     public static Specification<Plan> fromFilterPlanDto(FilterPlanDto f) {
         return SpecUtil.compose(
                 SpecUtil.joinLike("vehicleCatalog", "brand", f.getBrand()),
@@ -93,4 +97,6 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
                 SpecUtil.fieldEquals("level", f.getLevel()),
                 SpecUtil.fieldEquals("franchise", f.getFranchise()));
     }
+
+
 }

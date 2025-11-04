@@ -1,6 +1,7 @@
 package com.app.kinlock.presentation.controller;
 
 import com.app.kinlock.domain.service.PlanService;
+import com.app.kinlock.presentation.dto.FilterPlanDto;
 import com.app.kinlock.presentation.dto.PlanDto;
 import com.app.kinlock.presentation.pojo.PlanPojo;
 import lombok.AllArgsConstructor;
@@ -35,6 +36,11 @@ public class PlanController {
     @GetMapping("/getById/{id}")
     public ResponseEntity<PlanPojo> getById(@PathVariable Integer id) {
         return ResponseEntity.status(HttpStatus.OK).body(planService.getPojoById(id));
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<List<PlanPojo>> search(@RequestBody FilterPlanDto dto) {
+        return ResponseEntity.status(HttpStatus.OK).body(planService.search(dto));
     }
 
 }
