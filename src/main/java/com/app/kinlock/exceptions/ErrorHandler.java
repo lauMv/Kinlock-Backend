@@ -14,7 +14,7 @@ public class ErrorHandler {
 
     @ExceptionHandler({EntityNotFoundException.class,
             DuplicatedException.class,
-            HasAssociatedEntityException.class})
+            HasAssociatedEntityException.class, FunctionNotFoundException.class})
     public ResponseEntity<Map<String, Object>> handleBadRequest(
             Exception ex,
             HttpServletRequest request) {          // correct type
