@@ -35,13 +35,14 @@ public class PlanMapper {
         pojo.setId(plan.getId());
         pojo.setState(plan.getActive());
         pojo.setVehicleId(plan.getVehicleCatalog().getId());
-        pojo.setVehicleBrand(plan.getVehicleCatalog().getBrand());
-        pojo.setVehicleModel(plan.getVehicleCatalog().getModel());
-        pojo.setRegional(plan.getRegional().getName());
-        pojo.setInsurance(plan.getInsurance().getName());
+        pojo.setRegionalId(plan.getRegional().getId());
+        pojo.setInsuranceId(plan.getInsurance().getId());
         pojo.setMinimumPremium(plan.getMinimumPremium());
         pojo.setRate(plan.getRate());
+        pojo.setAgeLimit(plan.getAgeLimit());
         pojo.setDiscount(plan.getDiscount());
+        pojo.setLevel(plan.getLevel());
+        pojo.setLevel(plan.getLevel());
         pojo.setBenefits(executeGetBenefitsByPlan(plan.getId()));
         return pojo;
     }
@@ -67,6 +68,7 @@ public class PlanMapper {
         }
         return pojos;
     }
+
     private List<PlanBenefitPojo> executeGetBenefitsByPlan(Integer id) {
         return (List<PlanBenefitPojo>) integerFunctionManager.executeAndReturn(FunctionNames.GET_ALL_BENEFITS_FROM_PLAN, id);
     }

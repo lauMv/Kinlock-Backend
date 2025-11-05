@@ -6,9 +6,9 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum BenefitsCoverageEnum {
-    PRINCIPALS ("COBERTURAS_PRINCIPALES"),
-    ADDITIONALS("COBERTURAS_ADICIONALES"),
-    CLAUSES_AND_ANNEXES("CLAUSULAS_Y_ANEXOS");
+    PRINCIPALS ("COBERTURAS PRINCIPALES"),
+    ADDITIONALS("COBERTURAS ADICIONALES"),
+    CLAUSES_AND_ANNEXES("CLAUSULAS Y ANEXOS");
 
     private final String value;
 

@@ -4,10 +4,10 @@ import com.app.kinlock.domain.service.PlanService;
 import com.app.kinlock.presentation.dto.FilterPlanDto;
 import com.app.kinlock.presentation.dto.PlanDto;
 import com.app.kinlock.presentation.pojo.PlanPojo;
-import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import lombok.AllArgsConstructor;
 
 import java.util.List;
 
@@ -41,6 +41,12 @@ public class PlanController {
     @PostMapping("/search")
     public ResponseEntity<List<PlanPojo>> search(@RequestBody FilterPlanDto dto) {
         return ResponseEntity.status(HttpStatus.OK).body(planService.search(dto));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id){
+        planService.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 }

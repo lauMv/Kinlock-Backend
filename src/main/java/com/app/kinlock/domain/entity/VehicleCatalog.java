@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class VehicleCatalog extends Base{
+public class VehicleCatalog extends Base {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,4 +25,5 @@ public class VehicleCatalog extends Base{
 
     private String model;
     private Boolean highEnd;
+    private Boolean isElectric = false;
 }
