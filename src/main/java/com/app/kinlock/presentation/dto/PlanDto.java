@@ -23,4 +23,7 @@ public class PlanDto {
     private Double rate;
     private Integer ageLimit;
     private Double discount;
+    private String level;
+    private String franchise;
+
 }
