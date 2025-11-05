@@ -1,6 +1,7 @@
 package com.app.kinlock.exceptions;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,6 +25,21 @@ public class ErrorHandler {
                 .body(Map.of(
                         "statusCode", HttpStatus.BAD_REQUEST.value(),
                         "message", ex.getMessage(),
+                        "path", request.getRequestURI(),
+                        "timestamp", LocalDateTime.now()
+                ));
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<Map<String, Object>> handleFKViolation(
+            DataIntegrityViolationException ex,
+            HttpServletRequest request) {
+
+        return ResponseEntity
+                .badRequest()
+                .body(Map.of(
+                        "statusCode", HttpStatus.BAD_REQUEST.value(),
+                        "message", "No se puede eliminar porque esta en uso",
                         "path", request.getRequestURI(),
                         "timestamp", LocalDateTime.now()
                 ));

@@ -11,7 +11,7 @@ import java.util.List;
 public interface PlanRepository extends GenericRepository<Plan, Integer> {
 
     @Query("SELECT new com.app.kinlock.presentation.pojo.PlanPojo ( " +
-            "p.id, p.active, p.vehicleCatalog.id, p.vehicleCatalog.brand, p.vehicleCatalog.model, p.regional.name, p.insurance.name, p.minimumPremium, p.rate, p.discount) " +
+            "p.id, p.active, p.vehicleCatalog.id, p.regional.id, p.insurance.id, p.minimumPremium, p.rate, p.ageLimit, p.discount, p.level, p.franchise) " +
             "FROM Plan p ")
     List<PlanPojo> getAllPojo();
 }

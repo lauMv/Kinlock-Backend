@@ -47,4 +47,9 @@ public class VehicleCatalogController {
                 .collect(Collectors.toList());
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id){
+        vehicleCatalogService.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }
