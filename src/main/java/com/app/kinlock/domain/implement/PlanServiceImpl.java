@@ -1,7 +1,6 @@
 package com.app.kinlock.domain.implement;
 
-import com.app.kinlock.common.enums.VehicleClassificationEnum;
-import com.app.kinlock.common.spec.SpecUtil;
+import com.app.kinlock.common.spec.PlanSpecs;
 import com.app.kinlock.data.GenericRepository;
 import com.app.kinlock.data.PlanRepository;
 import com.app.kinlock.domain.entity.Insurance;
@@ -20,7 +19,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -82,20 +80,10 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
 
     @Override
     public List<PlanPojo> search(FilterPlanDto dto) {
-        Specification<Plan> spec = fromFilterPlanDto(dto);
+        Specification<Plan> spec = PlanSpecs.fromFilterPlanDto(dto);
         List<Plan> plans = planRepository.findAll(spec);
-        return mapper.toListPojo(plans);
-    }
+        return mapper.toListPojo(plans, dto.getVehicleValue());
 
-    public static Specification<Plan> fromFilterPlanDto(FilterPlanDto f) {
-        return SpecUtil.compose(
-                SpecUtil.joinLike("vehicleCatalog", "brand", f.getBrand()),
-                SpecUtil.joinLike("vehicleCatalog", "model", f.getModel()),
-                SpecUtil.joinLike("vehicleCatalog", "classification", VehicleClassificationEnum.fromString(f.getClassification()).toString()),
-                SpecUtil.fieldLessThanEqual("ageLimit", (LocalDate.now().getYear() - f.getYear())),
-                SpecUtil.joinLike("regional", "name", f.getRegional()),
-                SpecUtil.fieldEquals("level", f.getLevel()),
-                SpecUtil.fieldEquals("franchise", f.getFranchise()));
     }
 
 

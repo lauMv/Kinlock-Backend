@@ -24,7 +24,9 @@ public class PlanMapper {
         plan.setRate(dto.getRate());
         plan.setAgeLimit(dto.getAgeLimit());
         plan.setDiscount(dto.getDiscount());
-        plan.setActive(dto.getState());
+        plan.setActive(dto.getState() != null ? dto.getState() : true);
+        plan.setLevel(dto.getLevel() != null ? dto.getLevel() : "basic");
+        plan.setFranchise(dto.getFranchise() != null ? dto.getFranchise() : "1000");
         return plan;
     }
 
@@ -53,6 +55,18 @@ public class PlanMapper {
         return pojos;
     }
 
+    public List<PlanPojo> toListPojo(List<Plan> plans, String vehicleValue) {
+        double value = Double.parseDouble(
+                vehicleValue.replace(".", "").replace(",", "."));
+
+        List<PlanPojo> pojos = new ArrayList<>();
+        for (Plan plan : plans) {
+            PlanPojo pojo = toPojo(plan);
+            pojo.setPrice(plan.getRate() * value);
+            pojos.add(pojo);
+        }
+        return pojos;
+    }
     private List<PlanBenefitPojo> executeGetBenefitsByPlan(Integer id) {
         return (List<PlanBenefitPojo>) integerFunctionManager.executeAndReturn(FunctionNames.GET_ALL_BENEFITS_FROM_PLAN, id);
     }

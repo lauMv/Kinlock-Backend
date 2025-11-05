@@ -41,7 +41,6 @@ public class Plan extends Base {
     private String level;
     private Double discount;
     private String franchise;
-
     private Double interest;
 
     @OneToMany(mappedBy = "plan", cascade = ALL, orphanRemoval = true)

@@ -1,5 +1,6 @@
 package com.app.kinlock.common.spec;
 
+import com.app.kinlock.common.enums.VehicleClassificationEnum;
 import com.app.kinlock.domain.entity.Plan;
 import com.app.kinlock.domain.entity.Regional;
 import com.app.kinlock.domain.entity.VehicleCatalog;
@@ -7,7 +8,9 @@ import com.app.kinlock.presentation.dto.FilterPlanDto;
 import jakarta.persistence.criteria.Join;
 import org.springframework.data.jpa.domain.Specification;
 
-public class PlanSpecs {
+import java.time.Year;
+
+public final class PlanSpecs {
 
     public static Specification<Plan> fromFilterPlanDto(FilterPlanDto f) {
         return (root, query, cb) -> {
@@ -15,22 +18,30 @@ public class PlanSpecs {
             Join<Plan, VehicleCatalog> vehicle  = root.join("vehicleCatalog");
             Join<Plan, Regional>       regional = root.join("regional");
 
-            Specification<Plan> spec = SpecUtil.compose(
-                    SpecUtil.fieldLike(String.valueOf(vehicle.get("brand")),        f.getBrand()),
-                    SpecUtil.fieldLike(String.valueOf(vehicle.get("model")),        f.getModel()),
-                    SpecUtil.fieldLike(String.valueOf(vehicle.get("classification")), f.getClassification()),
-                    SpecUtil.fieldEquals(String.valueOf(root.get("ageLimit")),       f.getYear()),
-                    SpecUtil.fieldEquals(String.valueOf(regional.get("name")),      f.getRegional()),
-                    SpecUtil.fieldEquals(String.valueOf(root.get("level")),         f.getLevel()),
-                    SpecUtil.fieldEquals(String.valueOf(root.get("franchise")),     f.getFranchise()),
+            Specification<Plan> ageSpec = null;
+            if (f.getYear() != null) {
+                int carAge = Year.now().getValue() - f.getYear();
+                ageSpec = (r, q, c) -> c.lessThanOrEqualTo(
+                        c.literal(carAge),
+                        r.get("ageLimit"));
+            }
 
-                    f.getYear() != null
-                            ? SpecUtil.fieldLessThanEqual(
-                            String.valueOf(root.get("ageLimit")),
-                            Double.parseDouble(f.getYear().toString()))
-                            : null
-            );
-            return spec.toPredicate(root, query, cb);
+            return SpecUtil.<Plan>compose(
+                    f.getBrand() != null ?
+                            SpecUtil.fieldLike(vehicle.get("brand"), f.getBrand()) : null,
+                    f.getModel() != null ?
+                            SpecUtil.fieldLike(vehicle.get("model"), f.getModel()) : null,
+                    f.getClassification() != null ?
+                            SpecUtil.fieldLike(vehicle.get("classifications"),
+                                    VehicleClassificationEnum.fromString(f.getClassification()).name()) : null,
+                    ageSpec,
+                    f.getRegional() != null ?
+                            SpecUtil.fieldLike(regional.get("name"), f.getRegional()) : null,
+                    f.getLevel() != null ?
+                            SpecUtil.fieldEquals(root.get("level"), f.getLevel()) : null,
+                    f.getFranchise() != null ?
+                            SpecUtil.fieldEquals(root.get("franchise"), f.getFranchise()) : null
+            ).toPredicate(root, query, cb);
         };
     }
 }
