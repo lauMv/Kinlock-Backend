@@ -6,9 +6,12 @@ import com.app.kinlock.domain.entity.VehicleCatalog;
 import com.app.kinlock.domain.mapper.VehicleCatalogMapper;
 import com.app.kinlock.domain.service.VehicleCatalogService;
 import com.app.kinlock.presentation.dto.VehicleDto;
+import com.app.kinlock.presentation.pojo.VehiclePojo;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -35,6 +38,16 @@ public class VehicleCatalogCatalogServiceImpl extends CRUDServiceImpl<VehicleCat
         VehicleCatalog vehicleCatalog = this.getById(id);
         this.create(mapper.fromDto(dto, vehicleCatalog));
         return vehicleCatalog;
+    }
+
+    @Override
+    public VehiclePojo getPojoById(Integer id) {
+        return vehicleCatalogRepository.findPojoById(id);
+    }
+
+    @Override
+    public List<VehiclePojo> getAllPojo() {
+        return vehicleCatalogRepository.findAllPojo();
     }
 
 }

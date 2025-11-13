@@ -63,7 +63,8 @@ public class PlanMapper {
         List<PlanPojo> pojos = new ArrayList<>();
         for (Plan plan : plans) {
             PlanPojo pojo = toPojo(plan);
-            pojo.setPrice(plan.getRate() * value);
+            double min = plan.getRate() * value /100;
+            pojo.setPrice(min >= plan.getMinimumPremium() ? min : plan.getMinimumPremium());
             pojos.add(pojo);
         }
         return pojos;

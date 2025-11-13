@@ -6,6 +6,7 @@ import com.app.kinlock.presentation.pojo.PlanBenefitPojo;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,11 +19,13 @@ public class PlanBenefitController {
     private final PlanBenefitService planBenefitService;
 
     @PostMapping("/add")
+    @PreAuthorize("hasAnyRole('ADMIN', 'BROKER')")
     public ResponseEntity<PlanBenefitPojo> create(@RequestBody PlanBenefitDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(planBenefitService.create(dto));
     }
 
     @PutMapping("/edit/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'BROKER')")
     public ResponseEntity<PlanBenefitPojo> update(@PathVariable Integer id, @RequestBody PlanBenefitDto dto) {
         return ResponseEntity.status(HttpStatus.OK).body(planBenefitService.update(id, dto));
     }
@@ -38,6 +41,7 @@ public class PlanBenefitController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         planBenefitService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).build();

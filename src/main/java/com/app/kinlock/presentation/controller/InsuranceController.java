@@ -6,6 +6,7 @@ import com.app.kinlock.presentation.dto.InsuranceDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,11 +19,13 @@ public class InsuranceController {
     private final InsuranceService insuranceService;
 
     @PostMapping("/add")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Insurance> create(@RequestBody InsuranceDto dto){
         return ResponseEntity.status(HttpStatus.CREATED).body(insuranceService.create(dto));
     }
 
     @PutMapping("/edit/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Insurance> update(@PathVariable Integer id, @RequestBody InsuranceDto dto){
         return ResponseEntity.status(HttpStatus.OK).body(insuranceService.update(id, dto));
     }
@@ -38,6 +41,7 @@ public class InsuranceController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Integer id){
         insuranceService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).build();

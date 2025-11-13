@@ -21,9 +21,10 @@ public class VehicleCatalog extends Base {
     private String brand;
 
     @Enumerated(EnumType.STRING)
-    VehicleClassificationEnum classifications;
+    VehicleClassificationEnum classification;
 
     private String model;
     private Boolean highEnd;
     private Boolean isElectric = false;
+
 }
