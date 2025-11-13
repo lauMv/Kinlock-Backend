@@ -7,6 +7,7 @@ import com.app.kinlock.presentation.dto.BenefitDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -21,11 +22,13 @@ public class BenefitController {
     private final BenefitService benefitService;
 
     @PostMapping("/add")
+    @PreAuthorize("hasAnyRole('ADMIN', 'BROKER')")
     public ResponseEntity<Benefit> create(@RequestBody BenefitDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(benefitService.create(dto));
     }
 
     @PutMapping("/edit/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'BROKER')")
     public ResponseEntity<Benefit> update(@PathVariable Integer id, @RequestBody BenefitDto dto) {
         return ResponseEntity.status(HttpStatus.OK).body(benefitService.update(id, dto));
     }
@@ -41,6 +44,7 @@ public class BenefitController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'BROKER')")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         benefitService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).build();

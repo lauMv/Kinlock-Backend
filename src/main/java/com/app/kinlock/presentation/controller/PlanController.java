@@ -6,6 +6,7 @@ import com.app.kinlock.presentation.dto.PlanDto;
 import com.app.kinlock.presentation.pojo.PlanPojo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import lombok.AllArgsConstructor;
 
@@ -19,11 +20,13 @@ public class PlanController {
     private final PlanService planService;
 
     @PostMapping("/add")
+    @PreAuthorize("hasAnyRole('ADMIN', 'BROKER')")
     public ResponseEntity<PlanPojo> create(@RequestBody PlanDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(planService.create(dto));
     }
 
     @PutMapping("/edit/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'BROKER')")
     public ResponseEntity<PlanPojo> update(@PathVariable Integer id, @RequestBody PlanDto dto) {
         return ResponseEntity.status(HttpStatus.OK).body(planService.update(id, dto));
     }
@@ -44,6 +47,7 @@ public class PlanController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Integer id){
         planService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).build();

@@ -29,8 +29,8 @@ public final class PlanSpecs {
             return SpecUtil.<Plan>compose(
                     f.getBrand() != null ?
                             SpecUtil.fieldLike(vehicle.get("brand"), f.getBrand()) : null,
-                    f.getModel() != null ?
-                            SpecUtil.fieldLike(vehicle.get("model"), f.getModel()) : null,
+//                    f.getModel() != null ?
+//                            SpecUtil.fieldLike(vehicle.get("model"), f.getModel()) : null,
                     f.getClassification() != null ?
                             SpecUtil.fieldLike(vehicle.get("classifications"),
                                     VehicleClassificationEnum.fromString(f.getClassification()).name()) : null,

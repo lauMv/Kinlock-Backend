@@ -56,7 +56,7 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
     }
 
     private void setEntities(PlanDto dto, Plan plan) {
-        VehicleCatalog vehicleCatalog = Optional.ofNullable(vehicleCatalogService.getById(dto.getVehicleCatalogId()))
+        VehicleCatalog vehicleCatalog = Optional.ofNullable(vehicleCatalogService.getById(dto.getVehicleId()))
                 .orElseThrow(() -> new IllegalArgumentException("Vehiculo no encontrado"));
         plan.setVehicleCatalog(vehicleCatalog);
         Regional regional = Optional.ofNullable(regionalService.getById(dto.getRegionalId()))

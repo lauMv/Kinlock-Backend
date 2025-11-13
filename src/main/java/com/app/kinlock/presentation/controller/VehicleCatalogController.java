@@ -4,9 +4,11 @@ import com.app.kinlock.common.enums.VehicleClassificationEnum;
 import com.app.kinlock.domain.entity.VehicleCatalog;
 import com.app.kinlock.domain.service.VehicleCatalogService;
 import com.app.kinlock.presentation.dto.VehicleDto;
+import com.app.kinlock.presentation.pojo.VehiclePojo;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -21,23 +23,27 @@ public class VehicleCatalogController {
     VehicleCatalogService vehicleCatalogService;
 
     @PostMapping("/add")
+    @PreAuthorize("hasAnyRole('BROKER','ADMIN')")
     public ResponseEntity<VehicleCatalog> create(@RequestBody VehicleDto dto){
         return ResponseEntity.status(HttpStatus.CREATED).body(vehicleCatalogService.create(dto));
     }
 
     @PutMapping("/edit/{id}")
+    @PreAuthorize("hasAnyRole('BROKER','ADMIN')")
     public ResponseEntity<VehicleCatalog> update(@PathVariable Integer id, @RequestBody VehicleDto dto){
         return ResponseEntity.status(HttpStatus.OK).body(vehicleCatalogService.update(id, dto));
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<VehicleCatalog>> getAll(){
-        return ResponseEntity.status(HttpStatus.OK).body(vehicleCatalogService.getAll());
+    @PreAuthorize("hasAnyRole('BROKER','ADMIN')")
+    public ResponseEntity<List<VehiclePojo>> getAll(){
+        return ResponseEntity.status(HttpStatus.OK).body(vehicleCatalogService.getAllPojo());
     }
 
     @GetMapping("/getById/{id}")
-    public ResponseEntity<VehicleCatalog> getById(@PathVariable Integer id){
-        return ResponseEntity.status(HttpStatus.OK).body(vehicleCatalogService.getById(id));
+    @PreAuthorize("hasAnyRole('BROKER','ADMIN')")
+    public ResponseEntity<VehiclePojo> getById(@PathVariable Integer id){
+        return ResponseEntity.status(HttpStatus.OK).body(vehicleCatalogService.getPojoById(id));
     }
 
     @GetMapping("/vehicleClassification")
@@ -48,6 +54,7 @@ public class VehicleCatalogController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Integer id){
         vehicleCatalogService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).build();
