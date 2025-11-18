@@ -1,5 +1,6 @@
 package com.app.kinlock.domain.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -25,6 +26,7 @@ public class Insurance extends Base {
 
     private String email;
 
+    @Column(columnDefinition = "TEXT")
     private String qrImage;
 
     public Insurance(String name, String type, String email, String qrImage) {

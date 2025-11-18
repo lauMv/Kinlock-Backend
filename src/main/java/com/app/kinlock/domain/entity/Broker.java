@@ -21,7 +21,7 @@ public class Broker extends User implements CredentialsOwner {
     @Enumerated(EnumType.STRING)
     private RoleEnum role = RoleEnum.ROLE_BROKER;
 
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String logo;
 
     @ManyToMany
