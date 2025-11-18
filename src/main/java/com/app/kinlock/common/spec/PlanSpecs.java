@@ -32,7 +32,7 @@ public final class PlanSpecs {
 //                    f.getModel() != null ?
 //                            SpecUtil.fieldLike(vehicle.get("model"), f.getModel()) : null,
                     f.getClassification() != null ?
-                            SpecUtil.fieldLike(vehicle.get("classifications"),
+                            SpecUtil.fieldLike(vehicle.get("classification"),
                                     VehicleClassificationEnum.fromString(f.getClassification()).name()) : null,
                     ageSpec,
                     f.getRegional() != null ?
