@@ -34,9 +34,9 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/login", "/auth/**").permitAll()   // public
+                        .requestMatchers("/auth/login", "/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/plans/list").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/plans/search").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/plans/search").permitAll() // now free
                         .requestMatchers(HttpMethod.POST, "/plans/sendEmail/**").permitAll()
                         .requestMatchers("/admin/**").hasAuthority("ADMIN")
                         .requestMatchers("/broker/**").hasAnyAuthority("BROKER", "ADMIN")
