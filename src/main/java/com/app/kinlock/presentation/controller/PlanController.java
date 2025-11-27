@@ -53,4 +53,11 @@ public class PlanController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    @PostMapping("/sendEmail/{id}")
+    public ResponseEntity<Void> sendEmail(@PathVariable Integer id,
+                                          @RequestParam String email) {
+        planService.sendPlanToEmail(id, email);
+        return ResponseEntity.ok().build();
+    }
+
 }

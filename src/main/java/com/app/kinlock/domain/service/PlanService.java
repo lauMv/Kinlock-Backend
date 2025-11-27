@@ -18,4 +18,6 @@ public interface PlanService extends CRUDService<Plan, Integer> {
     List<PlanPojo> getAllPojo();
 
     List<PlanPojo> search(FilterPlanDto dto);
+
+    void sendPlanToEmail(Integer id, String email);
 }
