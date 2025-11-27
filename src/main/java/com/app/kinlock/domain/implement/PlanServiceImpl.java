@@ -1,6 +1,7 @@
 package com.app.kinlock.domain.implement;
 
 import com.app.kinlock.common.spec.PlanSpecs;
+import com.app.kinlock.config.MailService;
 import com.app.kinlock.data.GenericRepository;
 import com.app.kinlock.data.PlanRepository;
 import com.app.kinlock.domain.entity.Insurance;
@@ -31,6 +32,7 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
     private final RegionalService regionalService;
     private final InsuranceService insuranceService;
     private final PlanMapper mapper;
+    private final MailService mailService;
 
 
     @Override
@@ -84,6 +86,15 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
         List<Plan> plans = planRepository.findAll(spec);
         return mapper.toListPojo(plans, dto.getVehicleValue());
 
+    }
+
+    @Override
+    public void sendPlanToEmail(Integer id, String email) {
+        PlanPojo plan = this.getPojoById(id);
+        mailService.sendHtml(
+                email, "Informacion del plan",
+                plan.toString()
+        );
     }
 
 

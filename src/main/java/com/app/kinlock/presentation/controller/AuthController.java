@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-@Slf4j   // already present
+@Slf4j
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
