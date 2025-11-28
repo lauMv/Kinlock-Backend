@@ -30,4 +30,8 @@ public class Benefit extends Base {
         this.description = description;
         this.coverage = coverage;
     }
+
+    public String getCoverage() {
+        return coverage.getValue();
+    }
 }
