@@ -36,6 +36,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/login", "/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/plans/list").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/benefits/list").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/insurances/list").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/planBenefits/list/byPlanId/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/regionals/list").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/vehicles/list").permitAll()
                         .requestMatchers(HttpMethod.POST, "/plans/search").permitAll() // now free
                         .requestMatchers(HttpMethod.POST, "/plans/sendEmail/**").permitAll()
                         .requestMatchers("/admin/**").hasAuthority("ADMIN")
