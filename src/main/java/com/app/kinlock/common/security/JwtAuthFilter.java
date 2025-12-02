@@ -31,12 +31,19 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain chain) throws ServletException, IOException {
         String path = request.getServletPath();
-        if (path.startsWith("/auth")) {
-            chain.doFilter(request, response);
-            return;
-        }
 
-        if (MATCHER.match("/auth/login", path) || MATCHER.match("/auth/refresh", path)) {
+        if (path.startsWith("/auth") ||
+                MATCHER.match("/clientPlans/add", path) ||          // <- add this
+                MATCHER.match("/insurances/list", path) ||
+                MATCHER.match("/brokers/list", path) ||
+                MATCHER.match("/plans/list", path) ||
+                MATCHER.match("/benefits/list", path) ||
+                MATCHER.match("/regionals/list", path) ||
+                MATCHER.match("/vehicleCatalog/list", path) ||
+                MATCHER.match("/vehicleCatalog/vehicleClassification", path) ||
+                MATCHER.match("/benefits/benefitCoverageType", path) ||
+                path.startsWith("/planBenefits/list/byPlanId") ||
+                path.startsWith("/plans/sendEmail")) {
             chain.doFilter(request, response);
             return;
         }

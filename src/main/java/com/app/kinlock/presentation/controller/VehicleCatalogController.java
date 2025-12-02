@@ -35,7 +35,6 @@ public class VehicleCatalogController {
     }
 
     @GetMapping("/list")
-    @PreAuthorize("hasAnyRole('BROKER','ADMIN')")
     public ResponseEntity<List<VehiclePojo>> getAll(){
         return ResponseEntity.status(HttpStatus.OK).body(vehicleCatalogService.getAllPojo());
     }
