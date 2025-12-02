@@ -48,6 +48,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/planBenefits/list/byPlanId/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/regionals/list").permitAll()
                         .requestMatchers(HttpMethod.GET, "/vehicles/list").permitAll()
+                        .requestMatchers(HttpMethod.POST, "clientPlans/add").permitAll()
                         .requestMatchers(HttpMethod.POST, "/plans/search").permitAll() // now free
                         .requestMatchers(HttpMethod.POST, "/plans/sendEmail/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
