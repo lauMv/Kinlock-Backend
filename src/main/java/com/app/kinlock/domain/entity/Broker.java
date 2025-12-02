@@ -2,6 +2,7 @@ package com.app.kinlock.domain.entity;
 
 import com.app.kinlock.common.enums.RoleEnum;
 import com.app.kinlock.domain.service.CredentialsOwner;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,6 +25,7 @@ public class Broker extends User implements CredentialsOwner {
     @Column(columnDefinition = "TEXT")
     private String logo;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "broker_plan",

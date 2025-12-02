@@ -1,22 +1,22 @@
 package com.app.kinlock.domain.implement;
 
+import com.app.kinlock.common.function.FunctionManager;
+import com.app.kinlock.common.function.NamedFunction;
+import com.app.kinlock.common.security.AuthenticationFacade;
 import com.app.kinlock.common.spec.PlanSpecs;
 import com.app.kinlock.config.MailService;
 import com.app.kinlock.data.GenericRepository;
 import com.app.kinlock.data.PlanRepository;
-import com.app.kinlock.domain.entity.Insurance;
-import com.app.kinlock.domain.entity.Plan;
-import com.app.kinlock.domain.entity.Regional;
-import com.app.kinlock.domain.entity.VehicleCatalog;
+import com.app.kinlock.domain.entity.*;
 import com.app.kinlock.domain.mapper.PlanMapper;
-import com.app.kinlock.domain.service.InsuranceService;
-import com.app.kinlock.domain.service.PlanService;
-import com.app.kinlock.domain.service.RegionalService;
-import com.app.kinlock.domain.service.VehicleCatalogService;
+import com.app.kinlock.domain.service.*;
 import com.app.kinlock.presentation.dto.FilterPlanDto;
 import com.app.kinlock.presentation.dto.PlanDto;
 import com.app.kinlock.presentation.pojo.PlanPojo;
+import com.app.kinlock.utils.FunctionNames;
 import lombok.AllArgsConstructor;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +33,9 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
     private final InsuranceService insuranceService;
     private final PlanMapper mapper;
     private final MailService mailService;
+    private final AuthenticationFacade auth;
+    private final BrokerAdminService brokerAdminService;
+    private final FunctionManager<Integer> intFunctionManager;
 
 
     @Override
@@ -45,6 +48,11 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
         Plan plan = mapper.fromDto(dto, new Plan());
         setEntities(dto, plan);
         this.create(plan);
+        if (auth.isBroker()) {
+            Broker me = brokerAdminService.findByEmail(auth.getEmail());
+            me.getPlans().add(plan);
+            brokerAdminService.save(me);
+        }
         return mapper.toPojo(plan);
     }
 
@@ -97,5 +105,9 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
         );
     }
 
+    @EventListener(ApplicationReadyEvent.class)
+    private void addFunction() {
+        intFunctionManager.addFunction(new NamedFunction<>(FunctionNames.GET_PLAN_POJO, this::getPojoById));
+    }
 
 }
