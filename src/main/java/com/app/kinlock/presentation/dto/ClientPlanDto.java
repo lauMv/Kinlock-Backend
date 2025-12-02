@@ -1,31 +1,15 @@
-package com.app.kinlock.domain.entity;
+package com.app.kinlock.presentation.dto;
 
-import jakarta.persistence.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.time.LocalDate;
 
-@EqualsAndHashCode(callSuper = true)
-@Entity
 @Data
-public class ClientPlan extends Base {
+public class ClientPlanDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
-
-    @ManyToOne
-    @JoinColumn(name = "plan_id")
-    private Plan plan;
+    private Integer planId;
     private Double vehiclePrice;
     private String vehiclePlate;
-
-    //client
     private String gender;
     private String name;
     private String paternalSurname;
