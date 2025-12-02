@@ -1,38 +1,30 @@
 package com.app.kinlock.presentation.controller;
 
-import com.app.kinlock.data.BrokerRepository;
 import com.app.kinlock.domain.entity.Broker;
+import com.app.kinlock.domain.service.BrokerAdminService;
+import com.app.kinlock.presentation.dto.BrokerDto;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import jakarta.validation.Valid;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/admin")
 @RequiredArgsConstructor
 public class AdminBrokerController {
 
-    private final BrokerRepository brokerRepo;
-    private final PasswordEncoder encoder;
+    private final BrokerAdminService service;
 
-    record CreateBrokerRequest(String name, Long ci, String email,
-                               String rawPassword, String logo) {}
-
-    @PostMapping("/brokers")
+    @PostMapping("/add/brokers")
     @PreAuthorize("hasRole('ADMIN')")
-    public Broker createBroker(@Valid @RequestBody CreateBrokerRequest dto) {
-        if (brokerRepo.existsByEmail(dto.email()))
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email already used");
-
-        Broker b = new Broker();
-        b.setName(dto.name());
-        b.setCi(dto.ci());
-        b.setEmail(dto.email());
-        b.setPassword(encoder.encode(dto.rawPassword()));
-        b.setLogo(dto.logo());
-        return brokerRepo.save(b);
+    public ResponseEntity<Broker> createBroker(@Valid @RequestBody BrokerDto dto) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.createBroker(dto));
     }
+
+
 }

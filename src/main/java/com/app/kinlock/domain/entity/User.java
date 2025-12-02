@@ -1,5 +1,6 @@
 package com.app.kinlock.domain.entity;
 
+import com.app.kinlock.common.enums.RoleEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,4 +15,8 @@ public abstract class User extends Base {
     private Integer id;
     private String name;
     private Long ci;
+
+    @Enumerated(EnumType.STRING)
+    private RoleEnum role;
+
 }
