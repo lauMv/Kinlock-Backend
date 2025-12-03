@@ -35,15 +35,19 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         if (path.startsWith("/auth") ||
                 MATCHER.match("/clientPlans/add", path) ||          // <- add this
                 MATCHER.match("/insurances/list", path) ||
+                MATCHER.match("/insurances/getById/**", path) ||
                 MATCHER.match("/brokers/list", path) ||
                 MATCHER.match("/plans/list", path) ||
+                MATCHER.match("/plans/getById/**", path) ||
                 MATCHER.match("/benefits/list", path) ||
                 MATCHER.match("/regionals/list", path) ||
+                MATCHER.match("/regionals/getByIf/**", path) ||
                 MATCHER.match("/vehicleCatalog/list", path) ||
+                MATCHER.match("/vehicleCatalog/getById/**", path) ||
                 MATCHER.match("/vehicleCatalog/vehicleClassification", path) ||
                 MATCHER.match("/benefits/benefitCoverageType", path) ||
-                path.startsWith("/planBenefits/list/byPlanId") ||
-                path.startsWith("/plans/sendEmail")) {
+                MATCHER.match("/planBenefits/list/byPlanId/**", path) ||
+                MATCHER.match("/plans/sendEmail", path)) {
             chain.doFilter(request, response);
             return;
         }
