@@ -36,7 +36,6 @@ public class RegionalController {
     }
 
     @GetMapping("/getById/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'BROKER')")
     public ResponseEntity<Regional> getById(@PathVariable Integer id) {
         return ResponseEntity.ok(regionalService.getById(id));
     }

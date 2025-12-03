@@ -25,10 +25,10 @@ public class ClientPlanServiceImpl extends CRUDServiceImpl<ClientPlan, Integer> 
     }
 
     @Override
-    public ClientPlan create(ClientPlanDto dto) {
+    public void create(ClientPlanDto dto) {
         Plan plan = planService.getById(dto.getPlanId());
         ClientPlan clientPlan = mapper.fromDto(dto, new ClientPlan());
         clientPlan.setPlan(plan);
-        return this.create(clientPlan);
+        this.create(clientPlan);
     }
 }

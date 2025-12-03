@@ -40,7 +40,6 @@ public class VehicleCatalogController {
     }
 
     @GetMapping("/getById/{id}")
-    @PreAuthorize("hasAnyRole('BROKER','ADMIN')")
     public ResponseEntity<VehiclePojo> getById(@PathVariable Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(vehicleCatalogService.getPojoById(id));
     }

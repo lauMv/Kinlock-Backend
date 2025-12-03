@@ -19,7 +19,8 @@ public class ClientPlanController {
     private final ClientPlanService clientPlanService;
 
     @PostMapping("/add")
-    public ResponseEntity<ClientPlan> create(@RequestBody ClientPlanDto dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(clientPlanService.create(dto));
+    public ResponseEntity<Void> create(@RequestBody ClientPlanDto dto) {
+        clientPlanService.create(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

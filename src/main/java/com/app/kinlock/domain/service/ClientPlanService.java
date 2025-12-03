@@ -5,6 +5,6 @@ import com.app.kinlock.presentation.dto.ClientPlanDto;
 
 public interface ClientPlanService extends CRUDService<ClientPlan, Integer> {
 
-    ClientPlan create(ClientPlanDto dto);
+    void create(ClientPlanDto dto);
 
 }
