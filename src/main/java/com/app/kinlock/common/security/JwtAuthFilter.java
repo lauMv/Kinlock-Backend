@@ -47,7 +47,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 MATCHER.match("/vehicleCatalog/vehicleClassification", path) ||
                 MATCHER.match("/benefits/benefitCoverageType", path) ||
                 MATCHER.match("/planBenefits/list/byPlanId/**", path) ||
-                MATCHER.match("/plans/sendEmail", path)) {
+                MATCHER.match("/plans/sendEmail/**", path)) {
             chain.doFilter(request, response);
             return;
         }
