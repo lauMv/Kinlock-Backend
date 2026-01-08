@@ -29,8 +29,6 @@ public final class PlanSpecs {
             return SpecUtil.<Plan>compose(
                     f.getBrand() != null ?
                             SpecUtil.fieldLike(vehicle.get("brand"), f.getBrand()) : null,
-//                    f.getModel() != null ?
-//                            SpecUtil.fieldLike(vehicle.get("model"), f.getModel()) : null,
                     f.getClassification() != null ?
                             SpecUtil.fieldLike(vehicle.get("classification"),
                                     VehicleClassificationEnum.fromString(f.getClassification()).name()) : null,
@@ -38,9 +36,9 @@ public final class PlanSpecs {
                     f.getRegional() != null ?
                             SpecUtil.fieldLike(regional.get("name"), f.getRegional()) : null,
                     f.getLevel() != null ?
-                            SpecUtil.fieldEquals(root.get("level"), f.getLevel()) : null,
+                            SpecUtil.fieldLike(root.get("level"), f.getLevel()) : null,
                     f.getFranchise() != null ?
-                            SpecUtil.fieldEquals(root.get("franchise"), f.getFranchise()) : null
+                            SpecUtil.fieldLike(root.get("franchise"), f.getFranchise()) : null
             ).toPredicate(root, query, cb);
         };
     }

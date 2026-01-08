@@ -1,16 +1,18 @@
 package com.app.kinlock.common.enums;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
 public enum BenefitsCoverageEnum {
-    PRINCIPALS ("COBERTURAS PRINCIPALES"),
+    PRINCIPALS("COBERTURAS PRINCIPALES"),
     ADDITIONALS("COBERTURAS ADICIONALES"),
     CLAUSES_AND_ANNEXES("CLAUSULAS Y ANEXOS");
 
     private final String value;
+
+    BenefitsCoverageEnum(String value) {
+        this.value = value;
+    }
 
     public static BenefitsCoverageEnum fromString(String value) {
         if (value == null || value.isEmpty()) {
