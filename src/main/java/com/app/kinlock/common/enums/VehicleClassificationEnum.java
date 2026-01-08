@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
 public enum VehicleClassificationEnum {
     CAR("AUTOMOVIL"),
     SUV("VAGONETA"),
@@ -15,6 +14,10 @@ public enum VehicleClassificationEnum {
     MOTORCYCLE("MOTOCICLETA");
 
     private final String value;
+
+    VehicleClassificationEnum(String value) {
+        this.value = value;
+    }
 
     public static VehicleClassificationEnum fromString(String value) {
         if (value == null || value.isEmpty()) {

@@ -37,7 +37,6 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
     private final BrokerAdminService brokerAdminService;
     private final FunctionManager<Integer> intFunctionManager;
 
-
     @Override
     protected GenericRepository<Plan, Integer> getRepository() {
         return planRepository;
@@ -99,6 +98,7 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
     @Override
     public void sendPlanToEmail(Integer id, String email) {
         PlanPojo plan = this.getPojoById(id);
+//        CertificateData data = mapper.toCerti()
         mailService.sendHtml(
                 email, "Informacion del plan",
                 plan.toString()

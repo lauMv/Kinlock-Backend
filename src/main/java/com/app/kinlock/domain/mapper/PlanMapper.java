@@ -47,6 +47,11 @@ public class PlanMapper {
         return pojo;
     }
 
+//    CertificateData toCertificateData(Plan plan){
+//        CertificateData data = new CertificateData();
+//        data.setNombreCliente(plan);
+//    }
+
     public List<PlanPojo> toListPojo(List<Plan> plans) {
         List<PlanPojo> pojos = new ArrayList<>();
         for (Plan plan : plans) {
@@ -63,7 +68,7 @@ public class PlanMapper {
         List<PlanPojo> pojos = new ArrayList<>();
         for (Plan plan : plans) {
             PlanPojo pojo = toPojo(plan);
-            double min = plan.getRate() * value /100;
+            double min = (plan.getRate() * value) / 100;
             pojo.setPrice(min >= plan.getMinimumPremium() ? min : plan.getMinimumPremium());
             pojos.add(pojo);
         }
