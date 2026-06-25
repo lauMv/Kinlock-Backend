@@ -55,6 +55,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/vehicleCatalog/list").permitAll()
                         .requestMatchers(HttpMethod.GET, "/vehicleCatalog/vehicleClassification").permitAll()
                         .requestMatchers(HttpMethod.GET, "/vehicleCatalog/getById/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/vehicleCatalog/allBrands").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/vehicleCatalog/allModelsByBrand/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/brokers/list").permitAll()
                         .requestMatchers(HttpMethod.POST, "/clientPlans/add").permitAll()
                         .requestMatchers(HttpMethod.POST, "/plans/search").permitAll()

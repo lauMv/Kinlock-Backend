@@ -33,7 +33,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String path = request.getServletPath();
 
         if (path.startsWith("/auth") ||
-                MATCHER.match("/clientPlans/add", path) ||          // <- add this
+                MATCHER.match("/clientPlans/add", path) ||
                 MATCHER.match("/insurances/list", path) ||
                 MATCHER.match("/insurances/getById/**", path) ||
                 MATCHER.match("/brokers/list", path) ||
@@ -46,6 +46,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 MATCHER.match("/vehicleCatalog/list", path) ||
                 MATCHER.match("/vehicleCatalog/getById/**", path) ||
                 MATCHER.match("/vehicleCatalog/vehicleClassification", path) ||
+                MATCHER.match("/vehicleCatalog/allBrands", path) ||
+                MATCHER.match("/vehicleCatalog/allModelsByBrand/**", path) ||
                 MATCHER.match("/benefits/benefitCoverageType", path) ||
                 MATCHER.match("/planBenefits/list/byPlanId/**", path) ||
                 MATCHER.match("/plans/sendEmail/**", path)) {

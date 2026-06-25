@@ -22,4 +22,9 @@ public interface VehicleCatalogRepository extends GenericRepository<VehicleCatal
             "FROM VehicleCatalog v ")
     List<VehiclePojo> findAllPojo();
 
+    @Query("SELECT DISTINCT v.brand FROM VehicleCatalog v WHERE v.brand IS NOT NULL ORDER BY v.brand")
+    List<String> findAllBrands();
+
+    @Query("SELECT DISTINCT v.model FROM VehicleCatalog v WHERE v.brand = :brand AND v.model IS NOT NULL ORDER BY v.model")
+    List<String> findAllModelsByBrands(String brand);
 }

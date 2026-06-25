@@ -5,7 +5,9 @@ import com.app.kinlock.domain.entity.VehicleCatalog;
 import com.app.kinlock.domain.service.VehicleCatalogService;
 import com.app.kinlock.presentation.dto.VehicleDto;
 import com.app.kinlock.presentation.pojo.VehiclePojo;
+import jakarta.websocket.server.PathParam;
 import lombok.AllArgsConstructor;
+import org.docx4j.wml.R;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -56,5 +58,15 @@ public class VehicleCatalogController {
     public ResponseEntity<Void> delete(@PathVariable Integer id){
         vehicleCatalogService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @GetMapping("/allBrands")
+    public ResponseEntity<List<String>> getAllBrands(){
+        return ResponseEntity.status(HttpStatus.OK).body(vehicleCatalogService.getAllBrands());
+    }
+
+    @GetMapping("/allModelsByBrand")
+    public ResponseEntity<List<String>> getAllModelsByBrand(@PathParam("brand") String brand){
+        return ResponseEntity.status(HttpStatus.OK).body(vehicleCatalogService.getAllModelsByBrand(brand));
     }
 }
