@@ -26,11 +26,6 @@ public class Broker extends User implements CredentialsOwner {
     private String logo;
 
     @JsonIgnore
-    @ManyToMany
-    @JoinTable(
-            name = "broker_plan",
-            joinColumns = @JoinColumn(name = "broker_id"),
-            inverseJoinColumns = @JoinColumn(name = "plan_id")
-    )
+    @OneToMany(mappedBy = "broker")
     private List<Plan> plans = new ArrayList<>();
 }

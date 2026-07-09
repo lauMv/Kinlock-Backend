@@ -1,18 +1,21 @@
 package com.app.kinlock.domain.implement;
 
 import com.app.kinlock.common.enums.RoleEnum;
-import com.app.kinlock.common.function.FunctionManager;
 import com.app.kinlock.common.security.AuthenticationFacade;
 import com.app.kinlock.data.BrokerRepository;
 import com.app.kinlock.domain.entity.Broker;
+import com.app.kinlock.domain.entity.ClientPlan;
 import com.app.kinlock.domain.entity.Plan;
+import com.app.kinlock.domain.events.PlanCreatedEvent;
 import com.app.kinlock.domain.service.BrokerAdminService;
+import com.app.kinlock.domain.service.ClientPlanService;
+import com.app.kinlock.domain.service.PlanService;
 import com.app.kinlock.exceptions.DuplicatedException;
 import com.app.kinlock.presentation.dto.BrokerDto;
 import com.app.kinlock.presentation.pojo.BrokerPojo;
 import com.app.kinlock.presentation.pojo.PlanPojo;
-import com.app.kinlock.utils.FunctionNames;
 import lombok.AllArgsConstructor;
+import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +29,8 @@ public class BrokerAdminServiceImpl implements BrokerAdminService {
     private final BrokerRepository brokerRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationFacade auth;
-    private final FunctionManager<Integer> integerFunctionManager;
+    private final ClientPlanService clientPlanService;
+    private final PlanService planService;
 
     @Override
     public void save(Broker broker) {
@@ -80,13 +84,52 @@ public class BrokerAdminServiceImpl implements BrokerAdminService {
         Broker broker = brokerRepository.findByEmail(auth.getEmail());
         List<PlanPojo> pojos = new ArrayList<>();
         for (Plan plan : broker.getPlans()) {
-            PlanPojo pojo = executePlanPojo(plan.getId());
-            pojos.add(pojo);
+            pojos.add(planService.getPojoById(plan.getId()));
         }
         return pojos;
     }
 
-    private PlanPojo executePlanPojo(Integer id) {
-        return (PlanPojo) integerFunctionManager.executeAndReturn(FunctionNames.GET_PLAN_POJO, id);
+    @Override
+    public void confirmSoldPlan(Integer id) {
+        clientPlanService.confirmSoldPlan(id);
+    }
+
+    @Override
+    public List<PlanPojo> getSoldPlansByBroker() {
+        Broker broker = brokerRepository.findByEmail(auth.getEmail());
+        List<PlanPojo> pojos = new ArrayList<>();
+        for (ClientPlan plan : clientPlanService.getSoldPlans()) {
+            boolean belongsToBroker = broker.getPlans().stream()
+                    .anyMatch(p -> p.getId().equals(plan.getPlan().getId()));
+            if (belongsToBroker) {
+                pojos.add(planService.getPojoById(plan.getPlan().getId()));
+            }
+        }
+        return pojos;
+    }
+
+    @Override
+    public List<PlanPojo> getWaitingListPlansByBroker() {
+        Broker broker = brokerRepository.findByEmail(auth.getEmail());
+        List<PlanPojo> pojos = new ArrayList<>();
+        for (ClientPlan plan : clientPlanService.getOnHoldPlans()) {
+            boolean belongsToBroker = broker.getPlans().stream()
+                    .anyMatch(p -> p.getId().equals(plan.getPlan().getId()));
+            if (belongsToBroker) {
+                pojos.add(planService.getPojoById(plan.getPlan().getId()));
+            }
+        }
+        return pojos;
+    }
+
+    @EventListener
+    public void onPlanCreated(PlanCreatedEvent event) {
+        Broker broker = brokerRepository.findByEmail(event.getCreatorEmail());
+        if (broker == null) {
+            return;
+        }
+        Plan plan = event.getPlan();
+        plan.setBroker(broker);
+        planService.save(plan);
     }
 }

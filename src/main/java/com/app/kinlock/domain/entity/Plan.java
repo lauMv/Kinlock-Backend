@@ -23,6 +23,10 @@ public class Plan extends Base {
     private Integer id;
 
     @ManyToOne
+    @JoinColumn(name = "broker_id")
+    private Broker broker;
+
+    @ManyToOne
     @JoinColumn(name = "vehicle_catalog_id")
     private VehicleCatalog vehicleCatalog;
 

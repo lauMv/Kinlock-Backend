@@ -13,6 +13,8 @@ public interface PlanService extends CRUDService<Plan, Integer> {
 
     PlanPojo update(Integer id, PlanDto dto);
 
+    void save(Plan plan);
+
     PlanPojo getPojoById(Integer id);
 
     List<PlanPojo> getAllPojo();

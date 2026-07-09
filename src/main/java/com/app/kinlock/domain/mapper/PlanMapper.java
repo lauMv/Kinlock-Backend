@@ -43,6 +43,7 @@ public class PlanMapper {
         pojo.setDiscount(plan.getDiscount());
         pojo.setLevel(plan.getLevel());
         pojo.setLevel(plan.getLevel());
+        pojo.setCreatedBy(plan.getBroker().getName());
         pojo.setBenefits(executeGetBenefitsByPlan(plan.getId()));
         return pojo;
     }
