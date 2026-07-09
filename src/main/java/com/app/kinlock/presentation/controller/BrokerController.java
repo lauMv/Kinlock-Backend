@@ -17,7 +17,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/brokers")
+@RequestMapping("/broker")
 @AllArgsConstructor
 public class BrokerController {
 
@@ -44,5 +44,21 @@ public class BrokerController {
     @GetMapping("/getPlansByBroker")
     public ResponseEntity<List<PlanPojo>> getPlansByBroker() {
         return ResponseEntity.status(HttpStatus.OK).body(service.getPlansByBroker());
+    }
+
+    @PutMapping("/confirmSoldPlan/{id}")
+    public ResponseEntity<Void> confirmSoldPlan(@PathVariable Integer id) {
+        service.confirmSoldPlan(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @GetMapping("/getSoldPlansByBroker")
+    public ResponseEntity<List<PlanPojo>> getSoldPlansByBroker() {
+        return ResponseEntity.status(HttpStatus.OK).body(service.getSoldPlansByBroker());
+    }
+
+    @GetMapping("/getWaitingListPlansByBroker")
+    public ResponseEntity<List<PlanPojo>> getWaitingListPlansByBroker() {
+        return ResponseEntity.status(HttpStatus.OK).body(service.getWaitingListPlansByBroker());
     }
 }

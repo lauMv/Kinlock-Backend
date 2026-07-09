@@ -16,6 +16,7 @@ public class ClientPlanDto {
     private String maternalSurname;
     private String marriedName;
     private String documentType;
+    private Long documentNumber;
     private String countryOfBirth;
     private LocalDate birthdate;
     private Long cellphone;

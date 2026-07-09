@@ -31,8 +31,6 @@ public class PlanBenefit extends Base {
     @JoinColumn(name = "benefit_id")
     private Benefit benefit;
 
-    @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "limits", columnDefinition = "jsonb")
-    private Map<String, Double> limits = new HashMap<>();
+    private String description;
 
 }

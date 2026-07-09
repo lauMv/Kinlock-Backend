@@ -22,4 +22,10 @@ public interface BrokerAdminService {
     Broker getBrokerInfo();
 
     List<PlanPojo> getPlansByBroker();
+
+    void confirmSoldPlan(Integer id);
+
+    List<PlanPojo> getSoldPlansByBroker();
+
+    List<PlanPojo> getWaitingListPlansByBroker();
 }

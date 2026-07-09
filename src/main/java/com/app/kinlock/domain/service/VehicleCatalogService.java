@@ -15,4 +15,8 @@ public interface VehicleCatalogService extends CRUDService<VehicleCatalog, Integ
     VehiclePojo getPojoById(Integer id);
 
     List<VehiclePojo> getAllPojo();
+
+    List<String> getAllBrands();
+
+    List<String> getAllModelsByBrand(String brand);
 }

@@ -13,10 +13,10 @@ import com.app.kinlock.domain.service.PlanService;
 import com.app.kinlock.exceptions.DuplicatedException;
 import com.app.kinlock.exceptions.EntityNotFoundException;
 import com.app.kinlock.presentation.dto.PlanBenefitDto;
-import com.app.kinlock.presentation.pojo.LimitPojo;
 import com.app.kinlock.presentation.pojo.PlanBenefitPojo;
 import com.app.kinlock.utils.FunctionNames;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.micrometer.common.util.StringUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -24,9 +24,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -75,7 +73,7 @@ public class PlanBenefitServiceImpl extends CRUDServiceImpl<PlanBenefit, Integer
         PlanBenefit planBenefit = new PlanBenefit();
         planBenefit.setPlan(plan);
         planBenefit.setBenefit(benefit);
-        planBenefit.setLimits(toMap(dto.getLimits()));
+        planBenefit.setDescription(StringUtils.isBlank(dto.getDescription()) ? benefit.getDescription() : dto.getDescription());
         return toPojo(this.create(planBenefit));
     }
 
@@ -92,7 +90,7 @@ public class PlanBenefitServiceImpl extends CRUDServiceImpl<PlanBenefit, Integer
         }
         planBenefit.setPlan(plan);
         planBenefit.setBenefit(benefit);
-        planBenefit.setLimits(toMap(dto.getLimits()));
+        planBenefit.setDescription(StringUtils.isBlank(dto.getDescription()) ? benefit.getDescription() : dto.getDescription());
         return toPojo(this.create(planBenefit));
     }
 
@@ -102,20 +100,8 @@ public class PlanBenefitServiceImpl extends CRUDServiceImpl<PlanBenefit, Integer
         pojo.setPlanId(benefit.getPlan().getId());
         pojo.setBenefitId(benefit.getBenefit().getId());
         pojo.setBenefitName(benefit.getBenefit().getName());
-        List<LimitPojo> list = benefit.getLimits().entrySet().stream()
-                .map(e -> new LimitPojo(e.getKey(), e.getValue()))
-                .toList();
-        pojo.setLimits(list);
+        pojo.setDescription(benefit.getDescription());
         return pojo;
-    }
-
-    private Map<String, Double> toMap(List<LimitPojo> list) {
-        if (list == null) return Map.of();
-        return list.stream()
-                .collect(Collectors.toMap(
-                        LimitPojo::getName,
-                        LimitPojo::getLimit,
-                        (v1, v2) -> v2));
     }
 
     @EventListener(ApplicationReadyEvent.class)

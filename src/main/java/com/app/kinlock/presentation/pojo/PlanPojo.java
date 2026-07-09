@@ -23,6 +23,7 @@ public class PlanPojo {
     private Double price;
     private String level;
     private String franchise;
+    private String createdBy;
     private List<PlanBenefitPojo> benefits;
 
     public PlanPojo(Integer id, Boolean state, Integer vehicleId, Integer regionalId, Integer insuranceId, Double minimumPremium, Double rate, Integer ageLimit, Double discount, String level, String franchise) {

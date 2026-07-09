@@ -14,5 +14,5 @@ public class PlanBenefitDto {
 
     private Integer planId;
     private Integer benefitId;
-    private List<LimitPojo> limits;
+    private String description;
 }

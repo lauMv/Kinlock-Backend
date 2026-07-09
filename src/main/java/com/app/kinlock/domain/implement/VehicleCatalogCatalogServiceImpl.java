@@ -50,4 +50,14 @@ public class VehicleCatalogCatalogServiceImpl extends CRUDServiceImpl<VehicleCat
         return vehicleCatalogRepository.findAllPojo();
     }
 
+    @Override
+    public List<String> getAllBrands() {
+        return vehicleCatalogRepository.findAllBrands();
+    }
+
+    @Override
+    public List<String> getAllModelsByBrand(String brand) {
+        return vehicleCatalogRepository.findAllModelsByBrands(brand);
+    }
+
 }

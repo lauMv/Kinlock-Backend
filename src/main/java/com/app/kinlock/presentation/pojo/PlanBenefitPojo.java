@@ -15,5 +15,5 @@ public class PlanBenefitPojo {
     private Integer benefitId;
     private String benefitName;
     private Double price;
-    private List<LimitPojo> limits;
+    private String description;
 }
