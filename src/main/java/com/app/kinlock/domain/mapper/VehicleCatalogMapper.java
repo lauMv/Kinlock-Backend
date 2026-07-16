@@ -16,7 +16,6 @@ public class VehicleCatalogMapper {
         vehicleCatalog.setBrand(dto.getBrand());
         vehicleCatalog.setHighEnd(dto.getHighEnd());
         vehicleCatalog.setClassification(VehicleClassificationEnum.fromString(dto.getClassification()));
-        vehicleCatalog.setIsElectric(dto.getIsElectric() != null ? dto.getIsElectric() : false);
         return vehicleCatalog;
     }
 }

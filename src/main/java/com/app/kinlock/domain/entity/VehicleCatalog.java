@@ -25,6 +25,9 @@ public class VehicleCatalog extends Base {
 
     private String model;
     private Boolean highEnd;
-    private Boolean isElectric = false;
+
+    @ManyToOne
+    @JoinColumn(name = "vehicle_type_id")
+    private VehicleType vehicleType;
 
 }
