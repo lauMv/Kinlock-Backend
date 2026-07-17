@@ -5,6 +5,7 @@ import com.app.kinlock.data.VehicleCatalogRepository;
 import com.app.kinlock.domain.entity.VehicleCatalog;
 import com.app.kinlock.domain.mapper.VehicleCatalogMapper;
 import com.app.kinlock.domain.service.VehicleCatalogService;
+import com.app.kinlock.domain.service.VehicleTypeService;
 import com.app.kinlock.presentation.dto.VehicleDto;
 import com.app.kinlock.presentation.pojo.VehiclePojo;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,7 @@ public class VehicleCatalogCatalogServiceImpl extends CRUDServiceImpl<VehicleCat
 
     private final VehicleCatalogRepository vehicleCatalogRepository;
     private final VehicleCatalogMapper mapper;
+    private final VehicleTypeService vehicleTypeService;
 
     @Override
     protected GenericRepository<VehicleCatalog, Integer> getRepository() {
@@ -28,6 +30,7 @@ public class VehicleCatalogCatalogServiceImpl extends CRUDServiceImpl<VehicleCat
     @Override
     public VehicleCatalog create(VehicleDto dto) {
         VehicleCatalog vehicleCatalog = mapper.fromDto(dto, new VehicleCatalog());
+        vehicleCatalog.setVehicleType(vehicleTypeService.getByName(dto.getVehicleType()));
         this.create(vehicleCatalog);
         return vehicleCatalog;
     }
@@ -36,7 +39,9 @@ public class VehicleCatalogCatalogServiceImpl extends CRUDServiceImpl<VehicleCat
     @Override
     public VehicleCatalog update(Integer id, VehicleDto dto) {
         VehicleCatalog vehicleCatalog = this.getById(id);
-        this.create(mapper.fromDto(dto, vehicleCatalog));
+        vehicleCatalog = mapper.fromDto(dto, vehicleCatalog);
+        vehicleCatalog.setVehicleType(vehicleTypeService.getByName(dto.getVehicleType()));
+        this.create(vehicleCatalog);
         return vehicleCatalog;
     }
 

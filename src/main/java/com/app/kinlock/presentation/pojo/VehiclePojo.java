@@ -11,14 +11,14 @@ public class VehiclePojo {
     private String classification;
     private String model;
     private Boolean highEnd;
-    private Boolean isElectric;
+    private String vehicleType;
 
-    public VehiclePojo(Integer id, String brand, VehicleClassificationEnum classification, String model, Boolean highEnd, Boolean isElectric) {
+    public VehiclePojo(Integer id, String brand, VehicleClassificationEnum classification, String model, Boolean highEnd, String vehicleType) {
         this.id = id;
         this.brand = brand;
         this.classification = classification.getValue();
         this.model = model;
         this.highEnd = highEnd;
-        this.isElectric = isElectric;
+        this.vehicleType = vehicleType;
     }
 }

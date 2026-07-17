@@ -17,5 +17,5 @@ public class VehicleDto {
     private String model;
     private Integer year;
     private Boolean highEnd;
-    private Boolean isElectric;
+    private String vehicleType;
 }
