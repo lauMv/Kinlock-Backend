@@ -42,10 +42,17 @@ public class Plan extends Base {
     private Double rate;
     private Integer ageLimit;
 
-    private String level;
+    @ManyToOne
+    @JoinColumn(name = "segment_id", nullable = false)
+    private Segment segment;
+
     private Double discount;
     private String franchise;
     private Double interest;
+
+    @ManyToOne
+    @JoinColumn(name = "plan_type_id", nullable = false)
+    private PlanType planType;
 
     @OneToMany(mappedBy = "plan", cascade = ALL, orphanRemoval = true)
     private List<PlanBenefit> planBenefits = new ArrayList<>();

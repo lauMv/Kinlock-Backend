@@ -11,6 +11,7 @@ import com.app.kinlock.domain.service.BrokerAdminService;
 import com.app.kinlock.domain.service.ClientPlanService;
 import com.app.kinlock.domain.service.PlanService;
 import com.app.kinlock.exceptions.DuplicatedException;
+import com.app.kinlock.exceptions.EntityNotFoundException;
 import com.app.kinlock.presentation.dto.BrokerDto;
 import com.app.kinlock.presentation.pojo.BrokerPojo;
 import com.app.kinlock.presentation.pojo.PlanPojo;
@@ -124,9 +125,15 @@ public class BrokerAdminServiceImpl implements BrokerAdminService {
 
     @EventListener
     public void onPlanCreated(PlanCreatedEvent event) {
-        Broker broker = brokerRepository.findByEmail(event.getCreatorEmail());
-        if (broker == null) {
-            return;
+        Broker broker;
+        if (event.getTargetBrokerId() != null) {
+            broker = brokerRepository.findById(event.getTargetBrokerId())
+                    .orElseThrow(() -> new EntityNotFoundException("Broker", event.getTargetBrokerId()));
+        } else {
+            broker = brokerRepository.findByEmail(event.getCreatorEmail());
+            if (broker == null) {
+                return;
+            }
         }
         Plan plan = event.getPlan();
         plan.setBroker(broker);

@@ -1,5 +1,6 @@
 package com.app.kinlock.domain.implement;
 
+import com.app.kinlock.common.enums.EngineTypeEnum;
 import com.app.kinlock.data.GenericRepository;
 import com.app.kinlock.data.VehicleCatalogRepository;
 import com.app.kinlock.domain.entity.VehicleCatalog;
@@ -31,6 +32,7 @@ public class VehicleCatalogCatalogServiceImpl extends CRUDServiceImpl<VehicleCat
     public VehicleCatalog create(VehicleDto dto) {
         VehicleCatalog vehicleCatalog = mapper.fromDto(dto, new VehicleCatalog());
         vehicleCatalog.setVehicleType(vehicleTypeService.getByName(dto.getVehicleType()));
+        vehicleCatalog.setEngineType(EngineTypeEnum.fromString(dto.getEngineType()));
         this.create(vehicleCatalog);
         return vehicleCatalog;
     }

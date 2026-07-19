@@ -24,9 +24,8 @@ public class PlanMapper {
         plan.setRate(dto.getRate());
         plan.setAgeLimit(dto.getAgeLimit());
         plan.setDiscount(dto.getDiscount());
+        plan.setFranchise(dto.getFranchise());
         plan.setActive(dto.getState() != null ? dto.getState() : true);
-        plan.setLevel(dto.getLevel() != null ? dto.getLevel() : "basic");
-        plan.setFranchise(dto.getFranchise() != null ? dto.getFranchise() : "1000");
         return plan;
     }
 
@@ -41,8 +40,9 @@ public class PlanMapper {
         pojo.setRate(plan.getRate());
         pojo.setAgeLimit(plan.getAgeLimit());
         pojo.setDiscount(plan.getDiscount());
-        pojo.setLevel(plan.getLevel());
-        pojo.setLevel(plan.getLevel());
+        pojo.setFranchise(plan.getFranchise());
+        pojo.setSegment(plan.getSegment().getName());
+        pojo.setPlanType(plan.getPlanType().getName());
         pojo.setCreatedBy(plan.getBroker().getName());
         pojo.setBenefits(executeGetBenefitsByPlan(plan.getId()));
         return pojo;

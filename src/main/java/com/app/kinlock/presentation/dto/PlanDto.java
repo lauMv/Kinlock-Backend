@@ -20,10 +20,19 @@ public class PlanDto {
     private Integer insuranceId;
 
     private Double minimumPremium;
+
     private Double rate;
+
     private Integer ageLimit;
+
     private Double discount;
-    private String level;
+
     private String franchise;
+
+    private Integer segmentId;
+
+    private Integer planTypeId;
+
+    private Integer brokerId;
 
 }

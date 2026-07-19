@@ -53,7 +53,7 @@ public class BenefitController {
     @GetMapping("/benefitCoverageType")
     public List<String> getBenefitsCoverageTypes() {
         return Arrays.stream(BenefitsCoverageEnum.values())
-                .map(BenefitsCoverageEnum::getValue) // only Spanish
+                .map(BenefitsCoverageEnum::getValue)
                 .collect(Collectors.toList());
     }
 }

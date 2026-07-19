@@ -1,5 +1,6 @@
 package com.app.kinlock.domain.entity;
 
+import com.app.kinlock.common.enums.EngineTypeEnum;
 import com.app.kinlock.common.enums.VehicleClassificationEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,9 @@ public class VehicleCatalog extends Base {
 
     @Enumerated(EnumType.STRING)
     VehicleClassificationEnum classification;
+
+    @Enumerated(EnumType.STRING)
+    EngineTypeEnum engineType;
 
     private String model;
     private Boolean highEnd;

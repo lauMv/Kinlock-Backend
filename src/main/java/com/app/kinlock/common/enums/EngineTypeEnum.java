@@ -1,5 +1,8 @@
 package com.app.kinlock.common.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum EngineTypeEnum {
     COMBUSTION("COMBUSTION"),
     ELECTRIC("ELECTRICO"),
