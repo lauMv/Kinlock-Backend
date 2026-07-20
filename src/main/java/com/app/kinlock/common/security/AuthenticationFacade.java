@@ -17,4 +17,11 @@ public class AuthenticationFacade {
                 .getAuthorities().stream()
                 .anyMatch(g -> g.getAuthority().equals("ROLE_BROKER"));
     }
+
+    public boolean isAdmin() {
+        return SecurityContextHolder.getContext().getAuthentication()
+                .getAuthorities().stream()
+                .anyMatch(g -> g.getAuthority().equals("ROLE_ADMIN"));
+    }
+
 }

@@ -5,16 +5,10 @@ import com.app.kinlock.common.spec.PlanSpecs;
 import com.app.kinlock.config.MailService;
 import com.app.kinlock.data.GenericRepository;
 import com.app.kinlock.data.PlanRepository;
-import com.app.kinlock.domain.entity.Insurance;
-import com.app.kinlock.domain.entity.Plan;
-import com.app.kinlock.domain.entity.Regional;
-import com.app.kinlock.domain.entity.VehicleCatalog;
+import com.app.kinlock.domain.entity.*;
 import com.app.kinlock.domain.events.PlanCreatedEvent;
 import com.app.kinlock.domain.mapper.PlanMapper;
-import com.app.kinlock.domain.service.InsuranceService;
-import com.app.kinlock.domain.service.PlanService;
-import com.app.kinlock.domain.service.RegionalService;
-import com.app.kinlock.domain.service.VehicleCatalogService;
+import com.app.kinlock.domain.service.*;
 import com.app.kinlock.presentation.dto.FilterPlanDto;
 import com.app.kinlock.presentation.dto.PlanDto;
 import com.app.kinlock.presentation.pojo.PlanPojo;
@@ -34,6 +28,8 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
     private final VehicleCatalogService vehicleCatalogService;
     private final RegionalService regionalService;
     private final InsuranceService insuranceService;
+    private final PlanTypeService planTypeService;
+    private final SegmentService segmentService;
     private final PlanMapper mapper;
     private final MailService mailService;
     private final AuthenticationFacade auth;
@@ -51,8 +47,9 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
         this.create(plan);
         if (auth.isBroker()) {
             eventPublisher.publishEvent(new PlanCreatedEvent(plan, auth.getEmail()));
+        } else if (auth.isAdmin() && dto.getBrokerId() != null) {
+            eventPublisher.publishEvent(new PlanCreatedEvent(plan, null, dto.getBrokerId()));
         }
-
         return mapper.toPojo(plan);
     }
 
@@ -80,6 +77,12 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
         Insurance insurance = Optional.ofNullable(insuranceService.getById(dto.getInsuranceId()))
                 .orElseThrow(() -> new IllegalArgumentException("Seguro no encontrado"));
         plan.setInsurance(insurance);
+        Segment segment = Optional.ofNullable(segmentService.getById(dto.getSegmentId()))
+                .orElseThrow(()-> new IllegalArgumentException("Segmento no encontrado"));
+        plan.setSegment(segment);
+        PlanType planType = Optional.ofNullable(planTypeService.getById(dto.getPlanTypeId()))
+                .orElseThrow(()-> new IllegalArgumentException("Tipo de plan no encontrado"));
+        plan.setPlanType(planType);
     }
 
     @Override
