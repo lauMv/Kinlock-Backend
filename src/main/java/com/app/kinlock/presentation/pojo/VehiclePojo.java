@@ -1,5 +1,6 @@
 package com.app.kinlock.presentation.pojo;
 
+import com.app.kinlock.common.enums.EngineTypeEnum;
 import com.app.kinlock.common.enums.VehicleClassificationEnum;
 import lombok.Data;
 
@@ -12,13 +13,15 @@ public class VehiclePojo {
     private String model;
     private Boolean highEnd;
     private String vehicleType;
+    private String engineType;
 
-    public VehiclePojo(Integer id, String brand, VehicleClassificationEnum classification, String model, Boolean highEnd, String vehicleType) {
+    public VehiclePojo(Integer id, String brand, VehicleClassificationEnum classification, String model, Boolean highEnd, String vehicleType, EngineTypeEnum engineType) {
         this.id = id;
         this.brand = brand;
         this.classification = classification.getValue();
         this.model = model;
         this.highEnd = highEnd;
         this.vehicleType = vehicleType;
+        this.engineType = engineType.getValue();
     }
 }

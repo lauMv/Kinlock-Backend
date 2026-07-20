@@ -9,6 +9,8 @@ import com.app.kinlock.utils.FunctionNames;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,14 +65,21 @@ public class PlanMapper {
     }
 
     public List<PlanPojo> toListPojo(List<Plan> plans, String vehicleValue) {
-        double value = Double.parseDouble(
+        BigDecimal value = new BigDecimal(
                 vehicleValue.replace(".", "").replace(",", "."));
 
         List<PlanPojo> pojos = new ArrayList<>();
         for (Plan plan : plans) {
             PlanPojo pojo = toPojo(plan);
-            double min = (plan.getRate() * value) / 100;
-            pojo.setPrice(min >= plan.getMinimumPremium() ? min : plan.getMinimumPremium());
+
+            BigDecimal rate = BigDecimal.valueOf(plan.getRate());
+            BigDecimal min = rate.multiply(value)
+                    .divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP);
+
+            BigDecimal minimumPremium = BigDecimal.valueOf(plan.getMinimumPremium());
+            BigDecimal price = min.compareTo(minimumPremium) >= 0 ? min : minimumPremium;
+
+            pojo.setPrice(price.setScale(0, RoundingMode.HALF_UP).doubleValue());
             pojos.add(pojo);
         }
         return pojos;

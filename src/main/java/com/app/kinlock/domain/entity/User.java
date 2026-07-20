@@ -11,12 +11,12 @@ import lombok.EqualsAndHashCode;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class User extends Base {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)   // <-- change this
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
+    @SequenceGenerator(name = "user_seq", sequenceName = "user_seq", allocationSize = 1)
     private Integer id;
     private String name;
     private Long ci;
 
     @Enumerated(EnumType.STRING)
     private RoleEnum role;
-
 }

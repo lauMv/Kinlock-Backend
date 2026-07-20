@@ -1,5 +1,6 @@
 package com.app.kinlock.common.enums;
 
+import com.app.kinlock.exceptions.EntityNotFoundException;
 import lombok.Getter;
 
 @Getter
@@ -15,16 +16,16 @@ public enum BenefitsCoverageEnum {
     }
 
     public static BenefitsCoverageEnum fromString(String value) {
-        if (value == null || value.isEmpty()) {
-            return null;
+        if (value == null || value.isBlank()) {
+            throw new IllegalArgumentException("La cobertura no puede estar vacia");
         }
-        String normalized = value.trim().toLowerCase();
+        String normalized = value.trim();
 
         for (BenefitsCoverageEnum v : values()) {
             if (v.name().equalsIgnoreCase(normalized) || v.value.equalsIgnoreCase(normalized)) {
                 return v;
             }
         }
-        return null;
+        throw new EntityNotFoundException("Cobertura invalida: " + value);
     }
 }

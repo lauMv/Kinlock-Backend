@@ -32,7 +32,6 @@ public class VehicleCatalogCatalogServiceImpl extends CRUDServiceImpl<VehicleCat
     public VehicleCatalog create(VehicleDto dto) {
         VehicleCatalog vehicleCatalog = mapper.fromDto(dto, new VehicleCatalog());
         vehicleCatalog.setVehicleType(vehicleTypeService.getByName(dto.getVehicleType()));
-        vehicleCatalog.setEngineType(EngineTypeEnum.fromString(dto.getEngineType()));
         this.create(vehicleCatalog);
         return vehicleCatalog;
     }
