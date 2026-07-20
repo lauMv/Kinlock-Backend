@@ -30,8 +30,8 @@ public class BenefitServiceImpl extends CRUDServiceImpl<Benefit, Integer> implem
     @Override
     public Benefit update(Integer id, BenefitDto dto) {
         Benefit benefit = this.getById(id);
-        if (repository.existsByNameAndCoverageAndIdNot(dto.getName(), BenefitsCoverageEnum.fromString(dto.getCoverage()), id)){
-            throw new DuplicatedException("La covertura " + dto.getName() + "ya existe en la clasificacion "+ dto.getCoverage());
+        if (repository.existsByNameAndCoverageAndIdNot(dto.getName(), BenefitsCoverageEnum.fromString(dto.getCoverage()), id)) {
+            throw new DuplicatedException("La covertura " + dto.getName() + "ya existe en la clasificacion " + dto.getCoverage());
         }
         benefit.setName(dto.getName());
         benefit.setDescription(dto.getDescription());

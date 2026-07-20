@@ -1,5 +1,6 @@
 package com.app.kinlock.domain.mapper;
 
+import com.app.kinlock.common.enums.EngineTypeEnum;
 import com.app.kinlock.common.enums.VehicleClassificationEnum;
 import com.app.kinlock.domain.entity.VehicleCatalog;
 import com.app.kinlock.presentation.dto.VehicleDto;
@@ -16,6 +17,7 @@ public class VehicleCatalogMapper {
         vehicleCatalog.setBrand(dto.getBrand());
         vehicleCatalog.setHighEnd(dto.getHighEnd());
         vehicleCatalog.setClassification(VehicleClassificationEnum.fromString(dto.getClassification()));
+        vehicleCatalog.setEngineType(EngineTypeEnum.fromString(dto.getEngineType()));
         return vehicleCatalog;
     }
 }
