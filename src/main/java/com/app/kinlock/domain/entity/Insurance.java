@@ -24,12 +24,12 @@ public class Insurance extends Base {
     private String email;
 
     @Column(columnDefinition = "TEXT")
-    private String qrImage;
+    private String logo;
 
-    public Insurance(String name, String type, String email, String qrImage) {
+    public Insurance(String name, String type, String email, String logo) {
         this.name = name;
         this.type = type;
         this.email = email;
-        this.qrImage = qrImage;
+        this.logo = logo;
     }
 }
