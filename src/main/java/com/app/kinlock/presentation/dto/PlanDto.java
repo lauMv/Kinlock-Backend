@@ -29,6 +29,8 @@ public class PlanDto {
 
     private String franchise;
 
+    private Double interest;
+
     private Integer segmentId;
 
     private Integer planTypeId;

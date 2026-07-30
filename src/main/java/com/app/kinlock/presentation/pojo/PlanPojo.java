@@ -22,12 +22,13 @@ public class PlanPojo {
     private Double discount;
     private Double price;
     private String franchise;
+    private Double interest;
     private String segment;
     private String planType;
     private String createdBy;
     private List<PlanBenefitPojo> benefits;
 
-    public PlanPojo(Integer id, Boolean state, Integer vehicleId, Integer regionalId, Integer insuranceId, Double minimumPremium, Double rate, Integer ageLimit, Double discount, String franchise, String segment, String planType, String createdBy) {
+    public PlanPojo(Integer id, Boolean state, Integer vehicleId, Integer regionalId, Integer insuranceId, Double minimumPremium, Double rate, Integer ageLimit, Double discount, String franchise, Double interest, String segment, String planType, String createdBy) {
         this.id = id;
         this.state = state;
         this.vehicleId = vehicleId;
@@ -38,6 +39,7 @@ public class PlanPojo {
         this.ageLimit = ageLimit;
         this.discount = discount;
         this.franchise = franchise;
+        this.interest = interest;
         this.segment = segment;
         this.planType = planType;
         this.createdBy = createdBy;

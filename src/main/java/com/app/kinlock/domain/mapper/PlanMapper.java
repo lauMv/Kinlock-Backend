@@ -27,6 +27,7 @@ public class PlanMapper {
         plan.setAgeLimit(dto.getAgeLimit());
         plan.setDiscount(dto.getDiscount());
         plan.setFranchise(dto.getFranchise());
+        plan.setInterest(dto.getInterest());
         plan.setActive(dto.getState() != null ? dto.getState() : true);
         return plan;
     }
@@ -43,6 +44,7 @@ public class PlanMapper {
         pojo.setAgeLimit(plan.getAgeLimit());
         pojo.setDiscount(plan.getDiscount());
         pojo.setFranchise(plan.getFranchise());
+        pojo.setInterest(plan.getInterest());
         pojo.setSegment(plan.getSegment().getName());
         pojo.setPlanType(plan.getPlanType().getName());
         pojo.setCreatedBy(plan.getBroker().getName());
