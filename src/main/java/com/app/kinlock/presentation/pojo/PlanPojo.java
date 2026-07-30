@@ -12,6 +12,7 @@ import java.util.List;
 public class PlanPojo {
 
     private Integer id;
+    private String name;
     private Boolean state;
     private Integer vehicleId;
     private Integer regionalId;
@@ -28,8 +29,9 @@ public class PlanPojo {
     private String createdBy;
     private List<PlanBenefitPojo> benefits;
 
-    public PlanPojo(Integer id, Boolean state, Integer vehicleId, Integer regionalId, Integer insuranceId, Double minimumPremium, Double rate, Integer ageLimit, Double discount, String franchise, Double interest, String segment, String planType, String createdBy) {
+    public PlanPojo(Integer id, String name, Boolean state, Integer vehicleId, Integer regionalId, Integer insuranceId, Double minimumPremium, Double rate, Integer ageLimit, Double discount, String franchise, Double interest, String segment, String planType, String createdBy) {
         this.id = id;
+        this.name = name;
         this.state = state;
         this.vehicleId = vehicleId;
         this.regionalId = regionalId;

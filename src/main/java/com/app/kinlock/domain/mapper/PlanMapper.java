@@ -22,6 +22,7 @@ public class PlanMapper {
 
 
     public Plan fromDto(PlanDto dto, Plan plan) {
+        plan.setName(dto.getName());
         plan.setMinimumPremium(dto.getMinimumPremium());
         plan.setRate(dto.getRate());
         plan.setAgeLimit(dto.getAgeLimit());
@@ -35,6 +36,7 @@ public class PlanMapper {
     public PlanPojo toPojo(Plan plan) {
         PlanPojo pojo = new PlanPojo();
         pojo.setId(plan.getId());
+        pojo.setName(plan.getName());
         pojo.setState(plan.getActive());
         pojo.setVehicleId(plan.getVehicleCatalog().getId());
         pojo.setRegionalId(plan.getRegional().getId());
