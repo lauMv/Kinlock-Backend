@@ -13,6 +13,8 @@ public class PlanDto {
     @Nullable
     private Boolean state;
 
+    private String name;
+
     private Integer vehicleId;
 
     private Integer regionalId;
