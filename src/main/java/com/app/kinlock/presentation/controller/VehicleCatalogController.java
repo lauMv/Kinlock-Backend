@@ -49,7 +49,7 @@ public class VehicleCatalogController {
     @GetMapping("/vehicleClassification")
     public List<String> getVehicleClassifications() {
         return Arrays.stream(VehicleClassificationEnum.values())
-                .map(VehicleClassificationEnum::getValue) // only Spanish
+                .map(VehicleClassificationEnum::getValue)
                 .collect(Collectors.toList());
     }
 

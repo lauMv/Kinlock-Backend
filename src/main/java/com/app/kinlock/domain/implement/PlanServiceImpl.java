@@ -3,6 +3,7 @@ package com.app.kinlock.domain.implement;
 import com.app.kinlock.common.security.AuthenticationFacade;
 import com.app.kinlock.common.spec.PlanSpecs;
 import com.app.kinlock.config.MailService;
+import com.app.kinlock.data.BrokerRepository;
 import com.app.kinlock.data.GenericRepository;
 import com.app.kinlock.data.PlanRepository;
 import com.app.kinlock.domain.entity.*;
@@ -25,6 +26,7 @@ import java.util.Optional;
 public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements PlanService {
 
     private final PlanRepository planRepository;
+    private final BrokerRepository brokerRepository;
     private final VehicleCatalogService vehicleCatalogService;
     private final RegionalService regionalService;
     private final InsuranceService insuranceService;
@@ -58,6 +60,11 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
         Plan plan = this.getById(id);
         plan = mapper.fromDto(dto, plan);
         setEntities(dto, plan);
+        Broker broker = dto.getBrokerId() != null
+                ? brokerRepository.findById(dto.getBrokerId())
+                        .orElseThrow(() -> new IllegalArgumentException("Broker no encontrado"))
+                : null;
+        plan.setBroker(broker);
         this.create(plan);
         return mapper.toPojo(plan);
     }

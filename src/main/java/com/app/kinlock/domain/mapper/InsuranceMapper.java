@@ -11,7 +11,7 @@ public class InsuranceMapper {
         insurance.setName(dto.getName());
         insurance.setType(dto.getType());
         insurance.setEmail(dto.getEmail());
-        insurance.setLogo(dto.getQrImage());
+        insurance.setLogo(dto.getLogo());
         return insurance;
     }
 }

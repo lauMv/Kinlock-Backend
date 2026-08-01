@@ -10,5 +10,5 @@ public class InsuranceDto {
     private String name;
     private String type;
     private String email;
-    private String qrImage;
+    private String logo;
 }
