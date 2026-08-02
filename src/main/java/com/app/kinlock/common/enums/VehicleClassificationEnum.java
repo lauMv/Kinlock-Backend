@@ -1,6 +1,5 @@
 package com.app.kinlock.common.enums;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter

@@ -18,10 +18,10 @@ public class VehiclePojo {
     public VehiclePojo(Integer id, String brand, VehicleClassificationEnum classification, String model, Boolean highEnd, String vehicleType, EngineTypeEnum engineType) {
         this.id = id;
         this.brand = brand;
-        this.classification = classification.getValue();
+        this.classification = classification != null ? classification.getValue() : null;
         this.model = model;
         this.highEnd = highEnd;
         this.vehicleType = vehicleType;
-        this.engineType = engineType.getValue();
+        this.engineType = engineType != null ? engineType.getValue() : null;
     }
 }

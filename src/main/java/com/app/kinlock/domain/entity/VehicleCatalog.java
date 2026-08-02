@@ -31,7 +31,7 @@ public class VehicleCatalog extends Base {
     private Boolean highEnd;
 
     @ManyToOne
-    @JoinColumn(name = "vehicle_type_id")
+    @JoinColumn(name = "vehicle_type_id", nullable = false)
     private VehicleType vehicleType;
 
 }

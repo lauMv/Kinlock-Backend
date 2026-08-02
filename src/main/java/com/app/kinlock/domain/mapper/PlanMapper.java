@@ -47,9 +47,10 @@ public class PlanMapper {
         pojo.setDiscount(plan.getDiscount());
         pojo.setFranchise(plan.getFranchise());
         pojo.setInterest(plan.getInterest());
-        pojo.setSegment(plan.getSegment().getName());
-        pojo.setPlanType(plan.getPlanType().getName());
-        pojo.setCreatedBy(plan.getBroker().getName());
+        pojo.setSegment(plan.getSegment() != null ? plan.getSegment().getName() : null);
+        pojo.setPlanType(plan.getPlanType() != null ? plan.getPlanType().getName() : null);
+        pojo.setBrokerId(plan.getBroker() != null ? plan.getBroker().getId() : null);
+        pojo.setCreatedBy(plan.getBroker() != null ? plan.getBroker().getName() : null);
         pojo.setBenefits(executeGetBenefitsByPlan(plan.getId()));
         return pojo;
     }
