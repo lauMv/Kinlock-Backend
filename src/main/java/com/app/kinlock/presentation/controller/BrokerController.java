@@ -4,6 +4,7 @@ import com.app.kinlock.domain.entity.Broker;
 import com.app.kinlock.domain.service.BrokerAdminService;
 import com.app.kinlock.presentation.dto.BrokerDto;
 import com.app.kinlock.presentation.pojo.BrokerPojo;
+import com.app.kinlock.presentation.pojo.ClientPlanPojo;
 import com.app.kinlock.presentation.pojo.PlanPojo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -53,12 +54,12 @@ public class BrokerController {
     }
 
     @GetMapping("/getSoldPlansByBroker")
-    public ResponseEntity<List<PlanPojo>> getSoldPlansByBroker() {
+    public ResponseEntity<List<ClientPlanPojo>> getSoldPlansByBroker() {
         return ResponseEntity.status(HttpStatus.OK).body(service.getSoldPlansByBroker());
     }
 
     @GetMapping("/getWaitingListPlansByBroker")
-    public ResponseEntity<List<PlanPojo>> getWaitingListPlansByBroker() {
+    public ResponseEntity<List<ClientPlanPojo>> getWaitingListPlansByBroker() {
         return ResponseEntity.status(HttpStatus.OK).body(service.getWaitingListPlansByBroker());
     }
 }

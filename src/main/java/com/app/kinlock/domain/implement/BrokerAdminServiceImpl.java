@@ -14,6 +14,7 @@ import com.app.kinlock.exceptions.DuplicatedException;
 import com.app.kinlock.exceptions.EntityNotFoundException;
 import com.app.kinlock.presentation.dto.BrokerDto;
 import com.app.kinlock.presentation.pojo.BrokerPojo;
+import com.app.kinlock.presentation.pojo.ClientPlanPojo;
 import com.app.kinlock.presentation.pojo.PlanPojo;
 import lombok.AllArgsConstructor;
 import org.springframework.context.event.EventListener;
@@ -96,31 +97,43 @@ public class BrokerAdminServiceImpl implements BrokerAdminService {
     }
 
     @Override
-    public List<PlanPojo> getSoldPlansByBroker() {
+    public List<ClientPlanPojo> getSoldPlansByBroker() {
         Broker broker = brokerRepository.findByEmail(auth.getEmail());
-        List<PlanPojo> pojos = new ArrayList<>();
+        List<ClientPlanPojo> pojos = new ArrayList<>();
         for (ClientPlan plan : clientPlanService.getSoldPlans()) {
             boolean belongsToBroker = broker.getPlans().stream()
                     .anyMatch(p -> p.getId().equals(plan.getPlan().getId()));
             if (belongsToBroker) {
-                pojos.add(planService.getPojoById(plan.getPlan().getId()));
+                pojos.add(toClientPlanPojo(plan));
             }
         }
         return pojos;
     }
 
     @Override
-    public List<PlanPojo> getWaitingListPlansByBroker() {
+    public List<ClientPlanPojo> getWaitingListPlansByBroker() {
         Broker broker = brokerRepository.findByEmail(auth.getEmail());
-        List<PlanPojo> pojos = new ArrayList<>();
+        List<ClientPlanPojo> pojos = new ArrayList<>();
         for (ClientPlan plan : clientPlanService.getOnHoldPlans()) {
             boolean belongsToBroker = broker.getPlans().stream()
                     .anyMatch(p -> p.getId().equals(plan.getPlan().getId()));
             if (belongsToBroker) {
-                pojos.add(planService.getPojoById(plan.getPlan().getId()));
+                pojos.add(toClientPlanPojo(plan));
             }
         }
         return pojos;
+    }
+
+    private ClientPlanPojo toClientPlanPojo(ClientPlan clientPlan) {
+        ClientPlanPojo pojo = new ClientPlanPojo();
+        pojo.setId(clientPlan.getId());
+        pojo.setPlan(planService.getPojoById(clientPlan.getPlan().getId()));
+        pojo.setClient(clientPlan.getClient());
+        pojo.setVehicle(clientPlan.getPlan().getVehicleCatalog());
+        pojo.setVehiclePrice(clientPlan.getVehiclePrice());
+        pojo.setVehiclePlate(clientPlan.getVehiclePlate());
+        pojo.setSoldConfirmation(clientPlan.getSoldConfirmation());
+        return pojo;
     }
 
     @EventListener
