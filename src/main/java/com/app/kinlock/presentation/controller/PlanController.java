@@ -3,6 +3,7 @@ package com.app.kinlock.presentation.controller;
 import com.app.kinlock.domain.service.PlanService;
 import com.app.kinlock.presentation.dto.FilterPlanDto;
 import com.app.kinlock.presentation.dto.PlanDto;
+import com.app.kinlock.presentation.dto.SendEmailDto;
 import com.app.kinlock.presentation.pojo.PlanPojo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,9 +55,8 @@ public class PlanController {
     }
 
     @PostMapping("/sendEmail/{id}")
-    public ResponseEntity<Void> sendEmail(@PathVariable Integer id,
-                                          @RequestParam String email) {
-        planService.sendPlanToEmail(id, email);
+    public ResponseEntity<Void> sendEmail(@RequestBody SendEmailDto dto) {
+        planService.sendPlanToEmail(dto);
         return ResponseEntity.ok().build();
     }
 

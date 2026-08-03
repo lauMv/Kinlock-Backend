@@ -12,12 +12,14 @@ import com.app.kinlock.domain.mapper.PlanMapper;
 import com.app.kinlock.domain.service.*;
 import com.app.kinlock.presentation.dto.FilterPlanDto;
 import com.app.kinlock.presentation.dto.PlanDto;
+import com.app.kinlock.presentation.dto.SendEmailDto;
 import com.app.kinlock.presentation.pojo.PlanPojo;
 import lombok.AllArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -112,12 +114,15 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
     }
 
     @Override
-    public void sendPlanToEmail(Integer id, String email) {
-        PlanPojo plan = this.getPojoById(id);
-//        CertificateData data = mapper.toCerti()
-        mailService.sendHtml(
-                email, "Informacion del plan",
-                plan.toString()
+    public void sendPlanToEmail(SendEmailDto dto) {
+        byte[] pdfBytes = Base64.getDecoder().decode(dto.getBase64Pdf());
+        mailService.sendWithAttachment(
+                dto.getEmail(),
+                "Plan",
+                "Adjunto encontraras tu plan.",
+                pdfBytes,
+                "plan_info.pdf",
+                "application/pdf"
         );
     }
 

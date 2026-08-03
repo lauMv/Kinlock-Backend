@@ -3,6 +3,7 @@ package com.app.kinlock.domain.service;
 import com.app.kinlock.domain.entity.Plan;
 import com.app.kinlock.presentation.dto.FilterPlanDto;
 import com.app.kinlock.presentation.dto.PlanDto;
+import com.app.kinlock.presentation.dto.SendEmailDto;
 import com.app.kinlock.presentation.pojo.PlanPojo;
 
 import java.util.List;
@@ -21,5 +22,5 @@ public interface PlanService extends CRUDService<Plan, Integer> {
 
     List<PlanPojo> search(FilterPlanDto dto);
 
-    void sendPlanToEmail(Integer id, String email);
+    void sendPlanToEmail(SendEmailDto dto);
 }

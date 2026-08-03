@@ -55,11 +55,6 @@ public class PlanMapper {
         return pojo;
     }
 
-//    CertificateData toCertificateData(Plan plan){
-//        CertificateData data = new CertificateData();
-//        data.setNombreCliente(plan);
-//    }
-
     public List<PlanPojo> toListPojo(List<Plan> plans) {
         List<PlanPojo> pojos = new ArrayList<>();
         for (Plan plan : plans) {
