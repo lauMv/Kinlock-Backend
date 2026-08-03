@@ -3,6 +3,7 @@ package com.app.kinlock.domain.service;
 import com.app.kinlock.domain.entity.Broker;
 import com.app.kinlock.presentation.dto.BrokerDto;
 import com.app.kinlock.presentation.pojo.BrokerPojo;
+import com.app.kinlock.presentation.pojo.ClientPlanPojo;
 import com.app.kinlock.presentation.pojo.PlanPojo;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public interface BrokerAdminService {
 
     void confirmSoldPlan(Integer id);
 
-    List<PlanPojo> getSoldPlansByBroker();
+    List<ClientPlanPojo> getSoldPlansByBroker();
 
-    List<PlanPojo> getWaitingListPlansByBroker();
+    List<ClientPlanPojo> getWaitingListPlansByBroker();
 }

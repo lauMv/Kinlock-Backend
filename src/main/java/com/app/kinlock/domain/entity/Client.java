@@ -1,5 +1,6 @@
 package com.app.kinlock.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +22,8 @@ public class Client {
     private String email;
     private Long phone;
     private String address;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ClientPlan> details = new ArrayList<>();
 
