@@ -20,6 +20,8 @@ public class ClientPlan extends Base {
     @ManyToOne
     @JoinColumn(name = "plan_id")
     private Plan plan;
+    private String vehicleBrand;
+    private String vehicleModel;
     private Double vehiclePrice;
     private String vehiclePlate;
     private Boolean soldConfirmation = Boolean.FALSE;

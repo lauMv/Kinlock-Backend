@@ -15,7 +15,7 @@ public class VehicleDto {
     private String brand;
     private String classification;
     private String model;
-    private Boolean highEnd;
+    private String segment;
     private String vehicleType;
     private String engineType;
 }

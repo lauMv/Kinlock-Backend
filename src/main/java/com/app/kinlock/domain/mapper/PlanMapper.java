@@ -38,7 +38,6 @@ public class PlanMapper {
         pojo.setId(plan.getId());
         pojo.setName(plan.getName());
         pojo.setState(plan.getActive());
-        pojo.setVehicleId(plan.getVehicleCatalog().getId());
         pojo.setRegionalId(plan.getRegional().getId());
         pojo.setInsuranceId(plan.getInsurance().getId());
         pojo.setMinimumPremium(plan.getMinimumPremium());
@@ -54,11 +53,6 @@ public class PlanMapper {
         pojo.setBenefits(executeGetBenefitsByPlan(plan.getId()));
         return pojo;
     }
-
-//    CertificateData toCertificateData(Plan plan){
-//        CertificateData data = new CertificateData();
-//        data.setNombreCliente(plan);
-//    }
 
     public List<PlanPojo> toListPojo(List<Plan> plans) {
         List<PlanPojo> pojos = new ArrayList<>();

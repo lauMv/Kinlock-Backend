@@ -12,13 +12,13 @@ import java.util.List;
 public interface VehicleCatalogRepository extends GenericRepository<VehicleCatalog, Integer> {
 
     @Query("SELECT new com.app.kinlock.presentation.pojo.VehiclePojo(" +
-            "v.id, v.brand, v.classification, v.model, v.highEnd, v.vehicleType.name, v.engineType) " +
+            "v.id, v.brand, v.classification, v.model, v.segment.name, v.vehicleType.name, v.engineType) " +
             "FROM VehicleCatalog v " +
             "WHERE v.id = :id")
     VehiclePojo findPojoById(Integer id);
 
     @Query("SELECT new com.app.kinlock.presentation.pojo.VehiclePojo(" +
-            "v.id, v.brand, v.classification, v.model, v.highEnd, v.vehicleType.name, v.engineType) " +
+            "v.id, v.brand, v.classification, v.model, v.segment.name, v.vehicleType.name, v.engineType) " +
             "FROM VehicleCatalog v ")
     List<VehiclePojo> findAllPojo();
 
@@ -27,4 +27,6 @@ public interface VehicleCatalogRepository extends GenericRepository<VehicleCatal
 
     @Query("SELECT DISTINCT v.model FROM VehicleCatalog v WHERE v.brand = :brand AND v.model IS NOT NULL ORDER BY v.model")
     List<String> findAllModelsByBrands(String brand);
+
+    VehicleCatalog findByBrandIgnoreCaseAndModelIgnoreCase(String brand, String model);
 }

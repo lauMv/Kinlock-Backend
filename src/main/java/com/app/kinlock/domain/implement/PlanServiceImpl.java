@@ -4,20 +4,25 @@ import com.app.kinlock.common.security.AuthenticationFacade;
 import com.app.kinlock.common.spec.PlanSpecs;
 import com.app.kinlock.config.MailService;
 import com.app.kinlock.data.BrokerRepository;
+import com.app.kinlock.data.ClientRepository;
 import com.app.kinlock.data.GenericRepository;
 import com.app.kinlock.data.PlanRepository;
 import com.app.kinlock.domain.entity.*;
 import com.app.kinlock.domain.events.PlanCreatedEvent;
 import com.app.kinlock.domain.mapper.PlanMapper;
 import com.app.kinlock.domain.service.*;
+import com.app.kinlock.exceptions.MandatoryFieldException;
 import com.app.kinlock.presentation.dto.FilterPlanDto;
 import com.app.kinlock.presentation.dto.PlanDto;
+import com.app.kinlock.presentation.dto.SendEmailDto;
 import com.app.kinlock.presentation.pojo.PlanPojo;
+import io.micrometer.common.util.StringUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +40,7 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
     private final PlanMapper mapper;
     private final MailService mailService;
     private final AuthenticationFacade auth;
+    private final ClientRepository clientRepository;
     private final ApplicationEventPublisher eventPublisher;
 
     @Override
@@ -75,9 +81,6 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
     }
 
     private void setEntities(PlanDto dto, Plan plan) {
-        VehicleCatalog vehicleCatalog = Optional.ofNullable(vehicleCatalogService.getById(dto.getVehicleId()))
-                .orElseThrow(() -> new IllegalArgumentException("Vehiculo no encontrado"));
-        plan.setVehicleCatalog(vehicleCatalog);
         Regional regional = Optional.ofNullable(regionalService.getById(dto.getRegionalId()))
                 .orElseThrow(() -> new IllegalArgumentException("Regional no encontrada"));
         plan.setRegional(regional);
@@ -105,6 +108,19 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
 
     @Override
     public List<PlanPojo> search(FilterPlanDto dto) {
+        if (dto.getClientName() != null && dto.getClientEmail() != null && dto.getClientPhone() != null){
+            Client newClient = new Client(dto.getClientName(), dto.getClientEmail(), dto.getClientPhone());
+            clientRepository.save(newClient);
+        }
+        if (StringUtils.isBlank(dto.getBrand()) || StringUtils.isBlank(dto.getModel())) {
+            throw new MandatoryFieldException("marca", "modelo");
+        }
+        VehicleCatalog vehicle = vehicleCatalogService
+                .getByBrandAndModel(dto.getBrand().trim(), dto.getModel().trim());
+        dto.setVehicleType(vehicle.getVehicleType().getName());
+        dto.setClassification(vehicle.getClassification().getValue());
+        dto.setEngineType(vehicle.getEngineType().getValue());
+        dto.setSegment(vehicle.getSegment().getName());
         Specification<Plan> spec = PlanSpecs.fromFilterPlanDto(dto);
         List<Plan> plans = planRepository.findAll(spec);
         return mapper.toListPojo(plans, dto.getVehicleValue());
@@ -112,12 +128,15 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
     }
 
     @Override
-    public void sendPlanToEmail(Integer id, String email) {
-        PlanPojo plan = this.getPojoById(id);
-//        CertificateData data = mapper.toCerti()
-        mailService.sendHtml(
-                email, "Informacion del plan",
-                plan.toString()
+    public void sendPlanToEmail(SendEmailDto dto) {
+        byte[] pdfBytes = Base64.getDecoder().decode(dto.getBase64Pdf());
+        mailService.sendWithAttachment(
+                dto.getEmail(),
+                "Plan",
+                "Adjunto encontraras tu plan.",
+                pdfBytes,
+                "plan_info.pdf",
+                "application/pdf"
         );
     }
 

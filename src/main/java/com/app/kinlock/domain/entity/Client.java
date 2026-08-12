@@ -46,4 +46,9 @@ public class Client {
     private String workPlace;
     private String salary;
 
+    public Client(String name, String email, Long phone) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+    }
 }

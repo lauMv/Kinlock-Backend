@@ -19,4 +19,6 @@ public interface VehicleCatalogService extends CRUDService<VehicleCatalog, Integ
     List<String> getAllBrands();
 
     List<String> getAllModelsByBrand(String brand);
+
+    VehicleCatalog getByBrandAndModel(String brand, String model);
 }
