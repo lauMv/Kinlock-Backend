@@ -28,7 +28,10 @@ public class VehicleCatalog extends Base {
     EngineTypeEnum engineType;
 
     private String model;
-    private Boolean highEnd;
+
+    @ManyToOne
+    @JoinColumn(name = "segment_id", nullable = false)
+    private Segment segment;
 
     @ManyToOne
     @JoinColumn(name = "vehicle_type_id", nullable = false)
