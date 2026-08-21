@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -34,7 +35,8 @@ public class ClientPlanServiceImpl extends CRUDServiceImpl<ClientPlan, Integer> 
     @Override
     public void create(ClientPlanDto dto) {
         Plan plan = planService.getById(dto.getPlanId());
-        Client client = clientMapper.fromClientPlanDto(dto);
+        Optional<Client> existing = clientRepository.findClientByNameAndEmailAndCellphone(dto.getName(),dto.getEmail(), dto.getCellphone());
+        Client client = clientMapper.fromClientPlanDto(dto, existing.get());
         clientRepository.save(client);
         ClientPlan clientPlan = mapper.fromDto(dto, new ClientPlan(), client);
         clientPlan.setPlan(plan);

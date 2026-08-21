@@ -1,12 +1,10 @@
 package com.app.kinlock.common.spec;
 
 import com.app.kinlock.common.enums.EngineTypeEnum;
-import com.app.kinlock.common.enums.VehicleClassificationEnum;
 import com.app.kinlock.domain.entity.Plan;
 import com.app.kinlock.domain.entity.PlanType;
 import com.app.kinlock.domain.entity.Regional;
 import com.app.kinlock.domain.entity.Segment;
-import com.app.kinlock.domain.entity.VehicleCatalog;
 import com.app.kinlock.domain.entity.VehicleType;
 import com.app.kinlock.presentation.dto.FilterPlanDto;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -27,24 +25,16 @@ public final class PlanSpecs {
 
             List<Predicate> predicates = new ArrayList<>();
 
-            if (f.getVehicleType() != null || f.getBrand() != null || f.getClassification() != null || f.getEngineType() != null) {
-                Join<Plan, VehicleCatalog> vehicle = root.join("vehicleCatalog", JoinType.LEFT);
+            // engineType is a plain enum column directly on Plan - exact match, not LIKE
+            if (f.getEngineType() != null) {
+                predicates.add(cb.equal(root.get("engineType"),
+                        EngineTypeEnum.fromString(f.getEngineType())));
+            }
 
-                if (f.getVehicleType() != null) {
-                    Join<VehicleCatalog, VehicleType> vehicleType = vehicle.join("vehicleType", JoinType.LEFT);
-                    predicates.add(likeIgnoreCase(cb, vehicleType.get("name"), f.getVehicleType()));
-                }
-                if (f.getBrand() != null) {
-                    predicates.add(likeIgnoreCase(cb, vehicle.get("brand"), f.getBrand()));
-                }
-                if (f.getClassification() != null) {
-                    predicates.add(likeIgnoreCase(cb, vehicle.get("classification"),
-                            VehicleClassificationEnum.fromString(f.getClassification()).name()));
-                }
-                if (f.getEngineType() != null) {
-                    predicates.add(likeIgnoreCase(cb, vehicle.get("engineType"),
-                            EngineTypeEnum.fromString(f.getEngineType()).name()));
-                }
+            // vehicleType is a direct FK on Plan now (no more VehicleCatalog join)
+            if (f.getVehicleType() != null) {
+                Join<Plan, VehicleType> vehicleType = root.join("vehicleType", JoinType.LEFT);
+                predicates.add(likeIgnoreCase(cb, vehicleType.get("name"), f.getVehicleType()));
             }
 
             if (f.getRegional() != null) {

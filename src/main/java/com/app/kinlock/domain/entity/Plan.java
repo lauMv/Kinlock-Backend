@@ -1,5 +1,6 @@
 package com.app.kinlock.domain.entity;
 
+import com.app.kinlock.common.enums.EngineTypeEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,10 +30,6 @@ public class Plan extends Base {
     private Broker broker;
 
     @ManyToOne
-    @JoinColumn(name = "vehicle_catalog_id")
-    private VehicleCatalog vehicleCatalog;
-
-    @ManyToOne
     @JoinColumn(name = "regional_id")
     private Regional regional;
 
@@ -47,6 +44,13 @@ public class Plan extends Base {
     @ManyToOne
     @JoinColumn(name = "segment_id", nullable = false)
     private Segment segment;
+
+    @Enumerated(EnumType.STRING)
+    EngineTypeEnum engineType;
+
+    @ManyToOne
+    @JoinColumn(name = "vehicle_type_id", nullable = false)
+    private VehicleType vehicleType;
 
     private Double discount;
     private String franchise;

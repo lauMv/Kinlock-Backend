@@ -15,7 +15,6 @@ public class VehicleCatalogMapper {
         }
         vehicleCatalog.setModel(dto.getModel());
         vehicleCatalog.setBrand(dto.getBrand());
-        vehicleCatalog.setHighEnd(dto.getHighEnd());
         vehicleCatalog.setClassification(VehicleClassificationEnum.fromString(dto.getClassification()));
         vehicleCatalog.setEngineType(EngineTypeEnum.fromString(dto.getEngineType()));
         return vehicleCatalog;

@@ -1,6 +1,5 @@
 package com.app.kinlock.presentation.controller;
 
-import com.app.kinlock.domain.entity.ClientPlan;
 import com.app.kinlock.domain.service.ClientPlanService;
 import com.app.kinlock.presentation.dto.ClientPlanDto;
 import lombok.AllArgsConstructor;
