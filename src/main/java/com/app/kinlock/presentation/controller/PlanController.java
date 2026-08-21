@@ -54,7 +54,7 @@ public class PlanController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @PostMapping("/sendEmail/{id}")
+    @PostMapping("/sendEmail")
     public ResponseEntity<Void> sendEmail(@RequestBody SendEmailDto dto) {
         planService.sendPlanToEmail(dto);
         return ResponseEntity.ok().build();
