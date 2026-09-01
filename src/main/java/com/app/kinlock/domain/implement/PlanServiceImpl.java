@@ -1,5 +1,6 @@
 package com.app.kinlock.domain.implement;
 
+import com.app.kinlock.common.enums.EngineTypeEnum;
 import com.app.kinlock.common.security.AuthenticationFacade;
 import com.app.kinlock.common.spec.PlanSpecs;
 import com.app.kinlock.config.MailService;
@@ -11,6 +12,7 @@ import com.app.kinlock.domain.entity.*;
 import com.app.kinlock.domain.events.PlanCreatedEvent;
 import com.app.kinlock.domain.mapper.PlanMapper;
 import com.app.kinlock.domain.service.*;
+import com.app.kinlock.exceptions.EntityNotFoundException;
 import com.app.kinlock.exceptions.MandatoryFieldException;
 import com.app.kinlock.presentation.dto.FilterPlanDto;
 import com.app.kinlock.presentation.dto.PlanDto;
@@ -33,6 +35,7 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
     private final PlanRepository planRepository;
     private final BrokerRepository brokerRepository;
     private final VehicleCatalogService vehicleCatalogService;
+    private final VehicleTypeService vehicleTypeService;
     private final RegionalService regionalService;
     private final InsuranceService insuranceService;
     private final PlanTypeService planTypeService;
@@ -82,16 +85,21 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
 
     private void setEntities(PlanDto dto, Plan plan) {
         Regional regional = Optional.ofNullable(regionalService.getById(dto.getRegionalId()))
-                .orElseThrow(() -> new IllegalArgumentException("Regional no encontrada"));
+                .orElseThrow(() -> new EntityNotFoundException("Regional no encontrada"));
         plan.setRegional(regional);
         Insurance insurance = Optional.ofNullable(insuranceService.getById(dto.getInsuranceId()))
-                .orElseThrow(() -> new IllegalArgumentException("Seguro no encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Seguro no encontrado"));
         plan.setInsurance(insurance);
         Segment segment = Optional.ofNullable(segmentService.getById(dto.getSegmentId()))
-                .orElseThrow(()-> new IllegalArgumentException("Segmento no encontrado"));
+                .orElseThrow(()-> new EntityNotFoundException("Segmento no encontrado"));
         plan.setSegment(segment);
+        EngineTypeEnum engineType = EngineTypeEnum.fromString(dto.getEngineType());
+        plan.setEngineType(engineType);
+        VehicleType vehicleType = Optional.ofNullable(vehicleTypeService.getById(dto.getVehicleTypeId()))
+                .orElseThrow(() -> new EntityNotFoundException("Tipo de vehiculo no encontrado"));
+        plan.setVehicleType(vehicleType);
         PlanType planType = Optional.ofNullable(planTypeService.getById(dto.getPlanTypeId()))
-                .orElseThrow(()-> new IllegalArgumentException("Tipo de plan no encontrado"));
+                .orElseThrow(()-> new EntityNotFoundException("Tipo de plan no encontrado"));
         plan.setPlanType(planType);
     }
 
