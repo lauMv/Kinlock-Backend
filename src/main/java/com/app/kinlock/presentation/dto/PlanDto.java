@@ -15,8 +15,6 @@ public class PlanDto {
 
     private String name;
 
-    private Integer vehicleId;
-
     private Integer regionalId;
 
     private Integer insuranceId;
@@ -27,15 +25,19 @@ public class PlanDto {
 
     private Integer ageLimit;
 
+    private Integer segmentId;
+
+    private String engineType;
+
+    private Integer vehicleTypeId;
+
+    private Integer planTypeId;
+
     private Double discount;
 
     private String franchise;
 
     private Double interest;
-
-    private Integer segmentId;
-
-    private Integer planTypeId;
 
     private Integer brokerId;
 

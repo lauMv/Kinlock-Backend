@@ -3,6 +3,7 @@ package com.app.kinlock.config;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 public class MailService {
 
     private final JavaMailSender mailSender;
+    @Value("${spring.mail.username}")
+    private String mailUsername;
 
     public void sendHtml(String to, String subject, String htmlBody) {
         try {
@@ -21,8 +24,7 @@ public class MailService {
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(htmlBody, true);
-            helper.setFrom("youraccount@gmail.com");
-            mailSender.send(mime);
+            helper.setFrom(mailUsername);            mailSender.send(mime);
         } catch (MessagingException e) {
             throw new RuntimeException("Failed to send mail", e);
         }
@@ -40,8 +42,7 @@ public class MailService {
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(htmlBody, true);
-            helper.setFrom("youraccount@gmail.com");
-            helper.addAttachment(attachmentName, new ByteArrayResource(attachment), contentType);
+            helper.setFrom(mailUsername);            helper.addAttachment(attachmentName, new ByteArrayResource(attachment), contentType);
             mailSender.send(mime);
         } catch (MessagingException e) {
             throw new RuntimeException("Failed to send mail with attachment", e);
