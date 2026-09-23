@@ -31,3 +31,6 @@ bin/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Backups
+db_backups

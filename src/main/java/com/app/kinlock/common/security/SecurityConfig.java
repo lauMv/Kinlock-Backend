@@ -1,6 +1,7 @@
 package com.app.kinlock.common.security;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -24,6 +25,9 @@ import java.util.List;
 public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
+
+    @Value("${app.cors.allowed-origins}")
+    private String[] allowedOrigins;
 
     public SecurityConfig(JwtAuthFilter jwtAuthFilter) {
         this.jwtAuthFilter = jwtAuthFilter;
@@ -84,7 +88,7 @@ public class SecurityConfig {
     public org.springframework.web.cors.CorsConfigurationSource corsConfigurationSource() {
         org.springframework.web.cors.CorsConfiguration cfg =
                 new org.springframework.web.cors.CorsConfiguration();
-        cfg.setAllowedOriginPatterns(List.of("http://localhost:4200"));
+        cfg.setAllowedOriginPatterns(List.of(allowedOrigins));
         cfg.setAllowedMethods(List.of("*"));
         cfg.setAllowedHeaders(List.of("*"));
         cfg.setExposedHeaders(List.of("Authorization"));

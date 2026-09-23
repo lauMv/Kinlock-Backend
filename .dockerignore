@@ -1,0 +1,6 @@
+.git
+.gradle
+.idea
+build
+db_backups
+*.md
