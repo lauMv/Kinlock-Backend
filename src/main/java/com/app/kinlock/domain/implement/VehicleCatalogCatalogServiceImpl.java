@@ -71,13 +71,14 @@ public class VehicleCatalogCatalogServiceImpl extends CRUDServiceImpl<VehicleCat
 
     @Override
     public VehicleCatalog getByBrandAndModel(String brand, String model) {
-        VehicleCatalog vehicle = vehicleCatalogRepository.findByBrandIgnoreCaseAndModelIgnoreCase(brand, model);
-        if (vehicle != null) {
-            return vehicle;
-        } else {
-            throw new EntityNotFoundException("Vehiculo no encontrado");
+        if (!vehicleCatalogRepository.findAllBrands().contains(brand)){
+            throw new EntityNotFoundException("Marca del vehiculo no encontrada");
         }
-
+        if (!vehicleCatalogRepository.findAllModelsByBrands(brand).contains(model)){
+            throw new EntityNotFoundException("Modelo no encontrado para esa marca");
+        }
+        VehicleCatalog vehicle = vehicleCatalogRepository.findByBrandIgnoreCaseAndModelIgnoreCase(brand, model);
+        return vehicle;
     }
 
 }
