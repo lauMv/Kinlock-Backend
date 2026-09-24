@@ -16,7 +16,7 @@ public interface BrokerRepository extends JpaRepository<Broker, Integer> {
 
     Boolean existsByEmail(String email);
 
-    @Query("SELECT new com.app.kinlock.presentation.pojo.BrokerPojo (b.id, b.name, b.email) " +
+    @Query("SELECT new com.app.kinlock.presentation.pojo.BrokerPojo (b.id, b.name, b.ci, b.email) " +
             "FROM Broker b ")
     List<BrokerPojo> getAllPojo();
 
