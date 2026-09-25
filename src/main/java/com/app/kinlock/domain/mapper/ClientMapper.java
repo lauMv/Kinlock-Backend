@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ClientMapper {
+
     public Client fromClientPlanDto(ClientPlanDto dto, Client clientExisting){
         Client client;
         if (clientExisting == null) {
@@ -20,9 +21,11 @@ public class ClientMapper {
         client.setMarriedName(dto.getMarriedName());
         client.setDocumentType(dto.getDocumentType());
         client.setCi(dto.getDocumentNumber());
+        client.setCiPicFront(dto.getDocPicFront());
+        client.setCiPicBack(dto.getDocPicBack());
         client.setCountryOfBirth(dto.getCountryOfBirth());
         client.setBirthdate(dto.getBirthdate());
-        client.setCellphone(dto.getCellphone());
+        client.setPhone(dto.getCellphone());
         client.setEmail(dto.getEmail());
         client.setMaritalStatus(dto.getMaritalStatus());
         client.setCountryOfResidence(dto.getCountryOfResidence());
@@ -47,9 +50,10 @@ public class ClientMapper {
         existingClient.setMarriedName(newClient.getMarriedName());
         existingClient.setDocumentType(newClient.getDocumentType());
         existingClient.setCi(newClient.getCi());
+        existingClient.setCiPicFront(newClient.getCiPicFront());
+        existingClient.setCiPicBack(newClient.getCiPicBack());
         existingClient.setCountryOfBirth(newClient.getCountryOfBirth());
         existingClient.setBirthdate(newClient.getBirthdate());
-        existingClient.setCellphone(newClient.getCellphone());
         existingClient.setMaritalStatus(newClient.getMaritalStatus());
         existingClient.setCountryOfResidence(newClient.getCountryOfResidence());
         existingClient.setArea(newClient.getArea());
@@ -60,4 +64,5 @@ public class ClientMapper {
         existingClient.setSalary(newClient.getSalary());
         return existingClient;
     }
+
 }

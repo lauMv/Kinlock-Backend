@@ -13,8 +13,8 @@ public class VehicleCatalogMapper {
         if (dto.getState() != null) {
             vehicleCatalog.setActive(dto.getState());
         }
-        vehicleCatalog.setModel(dto.getModel());
-        vehicleCatalog.setBrand(dto.getBrand());
+        vehicleCatalog.setModel(dto.getModel().toUpperCase());
+        vehicleCatalog.setBrand(dto.getBrand().toUpperCase());
         vehicleCatalog.setClassification(VehicleClassificationEnum.fromString(dto.getClassification()));
         vehicleCatalog.setEngineType(EngineTypeEnum.fromString(dto.getEngineType()));
         return vehicleCatalog;
