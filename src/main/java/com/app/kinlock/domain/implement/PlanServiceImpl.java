@@ -10,6 +10,7 @@ import com.app.kinlock.data.GenericRepository;
 import com.app.kinlock.data.PlanRepository;
 import com.app.kinlock.domain.entity.*;
 import com.app.kinlock.domain.events.PlanCreatedEvent;
+import com.app.kinlock.domain.mapper.ClientMapper;
 import com.app.kinlock.domain.mapper.PlanMapper;
 import com.app.kinlock.domain.service.*;
 import com.app.kinlock.exceptions.EntityNotFoundException;
@@ -45,6 +46,7 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
     private final AuthenticationFacade auth;
     private final ClientRepository clientRepository;
     private final ApplicationEventPublisher eventPublisher;
+    private final ClientMapper clientMapper;
 
     @Override
     protected GenericRepository<Plan, Integer> getRepository() {
@@ -117,8 +119,11 @@ public class PlanServiceImpl extends CRUDServiceImpl<Plan, Integer> implements P
     @Override
     public List<PlanPojo> search(FilterPlanDto dto) {
         if (dto.getClientName() != null && dto.getClientEmail() != null && dto.getClientPhone() != null){
-            Client newClient = new Client(dto.getClientName(), dto.getClientEmail(), dto.getClientPhone());
-            clientRepository.save(newClient);
+            Optional<Client> existing = clientRepository.findClientByNameAndEmailAndPhone(dto.getClientName(),dto.getClientEmail(), dto.getClientPhone());
+            if (existing.isEmpty()) {
+                Client newClient = new Client(dto.getClientName(), dto.getClientEmail(), dto.getClientPhone());
+                clientRepository.save(newClient);
+            }
         }
         if (StringUtils.isBlank(dto.getBrand()) || StringUtils.isBlank(dto.getModel())) {
             throw new MandatoryFieldException("marca", "modelo");

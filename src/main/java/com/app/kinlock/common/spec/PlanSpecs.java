@@ -25,13 +25,11 @@ public final class PlanSpecs {
 
             List<Predicate> predicates = new ArrayList<>();
 
-            // engineType is a plain enum column directly on Plan - exact match, not LIKE
             if (f.getEngineType() != null) {
                 predicates.add(cb.equal(root.get("engineType"),
                         EngineTypeEnum.fromString(f.getEngineType())));
             }
 
-            // vehicleType is a direct FK on Plan now (no more VehicleCatalog join)
             if (f.getVehicleType() != null) {
                 Join<Plan, VehicleType> vehicleType = root.join("vehicleType", JoinType.LEFT);
                 predicates.add(likeIgnoreCase(cb, vehicleType.get("name"), f.getVehicleType()));

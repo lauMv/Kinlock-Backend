@@ -7,5 +7,5 @@ import java.util.Optional;
 
 @Repository
 public interface ClientRepository extends GenericRepository<Client, Integer>{
-    Optional<Client> findClientByNameAndEmailAndCellphone(String name, String email, Long phone);
+    Optional<Client> findClientByNameAndEmailAndPhone(String name, String email, Long phone);
 }

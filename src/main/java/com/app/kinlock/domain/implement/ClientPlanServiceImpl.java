@@ -35,7 +35,7 @@ public class ClientPlanServiceImpl extends CRUDServiceImpl<ClientPlan, Integer> 
     @Override
     public void create(ClientPlanDto dto) {
         Plan plan = planService.getById(dto.getPlanId());
-        Optional<Client> existing = clientRepository.findClientByNameAndEmailAndCellphone(dto.getName(),dto.getEmail(), dto.getCellphone());
+        Optional<Client> existing = clientRepository.findClientByNameAndEmailAndPhone(dto.getName(),dto.getEmail(), dto.getCellphone());
         Client client = clientMapper.fromClientPlanDto(dto, existing.orElse(null));
         clientRepository.save(client);
         ClientPlan clientPlan = mapper.fromDto(dto, new ClientPlan(), client);

@@ -34,9 +34,12 @@ public class Client {
     private String marriedName;
     private String documentType;
     private Long ci;
+    @Column(columnDefinition = "TEXT")
+    private String ciPicFront;
+    @Column(columnDefinition = "TEXT")
+    private String ciPicBack;
     private String countryOfBirth;
     private LocalDate birthdate;
-    private Long cellphone;
     private String maritalStatus;
     private String countryOfResidence;
     private String area;

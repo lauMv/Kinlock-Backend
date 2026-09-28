@@ -19,6 +19,8 @@ public class Insurance extends Base {
 
     private String name;
 
+    private String shortname;
+
     private String type;
 
     private String email;

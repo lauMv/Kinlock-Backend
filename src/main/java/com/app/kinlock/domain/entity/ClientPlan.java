@@ -24,5 +24,21 @@ public class ClientPlan extends Base {
     private String vehicleModel;
     private Double vehiclePrice;
     private String vehiclePlate;
+
+    @Column(columnDefinition = "TEXT")
+    private String vehiclePicRuat;
+    @Column(columnDefinition = "TEXT")
+    private String vehiclePicFront;
+    @Column(columnDefinition = "TEXT")
+    private String vehiclePicBack;
+    @Column(columnDefinition = "TEXT")
+    private String vehiclePicRight;
+    @Column(columnDefinition = "TEXT")
+    private String vehiclePicLeft;
+    @Column(columnDefinition = "TEXT")
+    private String vehiclePicChasis;
+    @Column(columnDefinition = "TEXT")
+    private String vehiclePicMileage;
+
     private Boolean soldConfirmation = Boolean.FALSE;
 }

@@ -8,6 +8,8 @@ import java.time.LocalDate;
 public class ClientPlanDto {
 
     private Integer planId;
+    private String vehicleBrand;
+    private String vehicleModel;
     private Double vehiclePrice;
     private String vehiclePlate;
     private String gender;
@@ -17,6 +19,8 @@ public class ClientPlanDto {
     private String marriedName;
     private String documentType;
     private Long documentNumber;
+    private String docPicFront;
+    private String docPicBack;
     private String countryOfBirth;
     private LocalDate birthdate;
     private Long cellphone;
@@ -30,4 +34,11 @@ public class ClientPlanDto {
     private String occupation;
     private String workPlace;
     private String salary;
+    private String vehiclePicFront;
+    private String vehiclePicBack;
+    private String vehiclePicRight;
+    private String vehiclePicLeft;
+    private String vehiclePicRuat;
+    private String vehiclePicChasis;
+    private String vehiclePicMileage;
 }

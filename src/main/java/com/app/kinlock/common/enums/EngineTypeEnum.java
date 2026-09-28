@@ -6,7 +6,7 @@ import lombok.Getter;
 public enum EngineTypeEnum {
     COMBUSTION("COMBUSTION"),
     ELECTRIC("ELECTRICO"),
-    HIBRID("HIBRID");
+    HIBRID("HIBRIDO");
 
     private final String value;
 
