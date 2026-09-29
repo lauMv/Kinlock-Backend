@@ -14,5 +14,12 @@ public class ClientPlanPojo {
     private String vehicleModel;
     private Double vehiclePrice;
     private String vehiclePlate;
+    private String vehiclePicRuat;
+    private String vehiclePicFront;
+    private String vehiclePicBack;
+    private String vehiclePicRight;
+    private String vehiclePicLeft;
+    private String vehiclePicChasis;
+    private String vehiclePicMileage;
     private Boolean soldConfirmation;
 }
