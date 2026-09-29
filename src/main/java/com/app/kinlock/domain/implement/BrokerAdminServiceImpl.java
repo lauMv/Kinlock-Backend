@@ -133,6 +133,13 @@ public class BrokerAdminServiceImpl implements BrokerAdminService {
         pojo.setVehicleModel(clientPlan.getVehicleModel());
         pojo.setVehiclePrice(clientPlan.getVehiclePrice());
         pojo.setVehiclePlate(clientPlan.getVehiclePlate());
+        pojo.setVehiclePicRuat(clientPlan.getVehiclePicRuat());
+        pojo.setVehiclePicFront(clientPlan.getVehiclePicFront());
+        pojo.setVehiclePicBack(clientPlan.getVehiclePicBack());
+        pojo.setVehiclePicRight(clientPlan.getVehiclePicRight());
+        pojo.setVehiclePicLeft(clientPlan.getVehiclePicLeft());
+        pojo.setVehiclePicChasis(clientPlan.getVehiclePicChasis());
+        pojo.setVehiclePicMileage(clientPlan.getVehiclePicMileage());
         pojo.setSoldConfirmation(clientPlan.getSoldConfirmation());
         return pojo;
     }
