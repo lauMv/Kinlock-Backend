@@ -1,5 +1,6 @@
 package com.app.kinlock.presentation.pojo;
 
+import com.app.kinlock.common.enums.EngineTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,16 +21,18 @@ public class PlanPojo {
     private Double rate;
     private Integer ageLimit;
     private Double discount;
-    private Double price;
     private String franchise;
     private Double interest;
     private String segment;
+    private String engineType;
+    private String vehicleType;
+    private Double price;
     private String planType;
     private Integer brokerId;
     private String createdBy;
     private List<PlanBenefitPojo> benefits;
 
-    public PlanPojo(Integer id, String name, Boolean state, Integer regionalId, Integer insuranceId, Double minimumPremium, Double rate, Integer ageLimit, Double discount, String franchise, Double interest, String segment, String planType, Integer brokerId, String createdBy) {
+    public PlanPojo(Integer id, String name, Boolean state, Integer regionalId, Integer insuranceId, Double minimumPremium, Double rate, Integer ageLimit, Double discount, String franchise, Double interest, String segment, EngineTypeEnum engineType, String vehicleType, String planType, Integer brokerId, String createdBy) {
         this.id = id;
         this.name = name;
         this.state = state;
@@ -42,6 +45,8 @@ public class PlanPojo {
         this.franchise = franchise;
         this.interest = interest;
         this.segment = segment;
+        this.engineType = engineType.getValue();
+        this.vehicleType = vehicleType;
         this.planType = planType;
         this.brokerId = brokerId;
         this.createdBy = createdBy;

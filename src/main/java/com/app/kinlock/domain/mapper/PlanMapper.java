@@ -47,6 +47,8 @@ public class PlanMapper {
         pojo.setFranchise(plan.getFranchise());
         pojo.setInterest(plan.getInterest());
         pojo.setSegment(plan.getSegment() != null ? plan.getSegment().getName() : null);
+        pojo.setEngineType(plan.getEngineType().getValue());
+        pojo.setVehicleType(plan.getVehicleType() != null ? plan.getVehicleType().getName() : null);
         pojo.setPlanType(plan.getPlanType() != null ? plan.getPlanType().getName() : null);
         pojo.setBrokerId(plan.getBroker() != null ? plan.getBroker().getId() : null);
         pojo.setCreatedBy(plan.getBroker() != null ? plan.getBroker().getName() : null);
