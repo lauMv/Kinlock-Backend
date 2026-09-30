@@ -101,6 +101,7 @@ public class PlanBenefitServiceImpl extends CRUDServiceImpl<PlanBenefit, Integer
         pojo.setBenefitId(benefit.getBenefit().getId());
         pojo.setBenefitName(benefit.getBenefit().getName());
         pojo.setDescription(benefit.getDescription());
+        pojo.setCoverage(benefit.getBenefit().getCoverage());
         return pojo;
     }
 

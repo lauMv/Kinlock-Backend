@@ -16,4 +16,5 @@ public class PlanBenefitPojo {
     private String benefitName;
     private Double price;
     private String description;
+    private String coverage;
 }
